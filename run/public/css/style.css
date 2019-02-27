@@ -1,0 +1,101 @@
+* {
+    text-decoration: none;
+}
+
+body {
+    background-color: lightgray;
+}
+
+#title {
+    text-align: center;
+}
+
+#logo {
+    width: 5em;
+}
+
+/* connection form --indexView */
+form {
+    text-align: center;
+}
+
+/* username and password --indexView */
+input {
+    background-color: lightseagreen;
+    color: white;
+    text-align: center;
+    width: 7em;
+    margin-right: 1em;
+    border-radius: 1em;
+}
+
+input:hover {
+    color: orange;
+}
+
+/* confirm button --indexView */
+.confirm {
+    background-color: chocolate;
+    color: lightseagreen;
+    font-weight: bold;
+    margin-right: 1em;
+    margin-top: 1.3em;
+}
+
+/* navbar --indexView */
+h1 {
+    display: inline-block;
+    padding-left: 1.8em;
+}
+
+h1 a {
+    color: lightseagreen;
+}
+
+h1 a:hover {
+    color: chocolate;
+}
+
+#menu {
+    text-align: center;
+}
+
+.race {
+    text-align: center;
+}
+
+img {
+    width: 70%;
+    margin-left: 17em;
+}
+
+/* form --registerView */
+.register {
+    border: 3px solid darkblue;
+    text-align: center;
+}
+
+a {
+    color: chocolate;
+}
+
+a:hover {
+    color: darkblue;
+}
+
+/* log redirection */
+.log_reg {
+    background-color: gray;
+    color: white;
+    text-align: center;
+    width: 50em;
+    margin-right: 3em;
+}
+
+.confirm_reg {
+    background-color: chocolate;
+    color: darkblue;
+    font-weight: bold;
+    margin-right: 2em;
+    margin-top: 2.3em;
+}
