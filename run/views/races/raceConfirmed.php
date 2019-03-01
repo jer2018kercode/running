@@ -1,8 +1,7 @@
-<?php $title = 'Infos courses';?>
+<?php $title = 'Confirmation';?>
 <?php ob_start();?>
 
-
-<a href="index.php">Retour à la page d'accueil</a>
+<h1>Your have been registered for you selected race!</h1>
 
 <?php $content = ob_get_clean();?>
 <?php require 'views/template.php';?>

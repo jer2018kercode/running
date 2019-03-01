@@ -9,10 +9,10 @@
     htmlspecialchars( $_SESSION['id'] ); ?><p>
 
 <?php // --raceView ?>
-<a href="index.php?action=showRaces">Voir toutes les courses</a><br /><br />
+<a href="index.php?action=racesDetails">Voir toutes les courses</a><br /><br />
 
 <?php // --progressionView ?>
-<a href="index.php?action=showProgessionRedirect">Voir ma progression</a>
+<a href="index.php?action=showProgessionRedirect&id=<?= $progression_['id'] ?>">Voir ma progression</a>
 
 <?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php require 'views/template.php';?> 

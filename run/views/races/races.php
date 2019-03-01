@@ -3,7 +3,7 @@
 
 <?php // db table race used ?>
 
-<a href="index.php?action=joinRace">S'inscrire à une course</a>
+<a href="index.php?action=raceConfirmed">S'inscrire à une course</a>
     
 </form>
 

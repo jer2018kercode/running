@@ -10,18 +10,19 @@ class OutdoorsManager extends Manager
     public function showOutdoors()
     {
         $db = $this->dbConnect();
-        $show = $db->prepare( 'SELECT * FROM race WHERE outdoor = 1' );
+        $show = $db->prepare( 'SELECT * FROM outdoor WHERE race = 0' );
         $show->execute();
 
         return $show;
     }
 
     // join outdoors
-    public function joinOutdoor( $id_member )
+    public function joinOutdoor( $title, $id_member )
     {
         $db = $this->dbConnect();
-        $join = $db->prepare( 'INSERT INTO race( id_Member ) VALUES( ? )' );
+        $join = $db->prepare( 'INSERT INTO outdoor( title, id_Member ) VALUES( ?, ? )' );
         $join->execute( array( 
+            $title,
             1
         ));
 
@@ -29,12 +30,14 @@ class OutdoorsManager extends Manager
     }
 
     // suggest outdoors
-    public function suggestOutdoor( $title, $id_member )
+    public function suggestOutdoor( $title, $description, $date, $id_member )
     {
         $db = $this->dbConnect();
-        $suggest = $db->prepare( 'INSERT INTO race( title, id_Member ) VALUES( ?, ? )' );
+        $suggest = $db->prepare( 'INSERT INTO race( title, description, date, id_Member ) VALUES( ?, ?, ?, ? )' );
         $suggest->execute( array(
             $title,
+            $description,
+            $date,
             1
         ));
 

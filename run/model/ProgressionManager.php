@@ -7,11 +7,13 @@ use \PDO;
 class ProgressionManager extends Manager
 {
     // member's progression
-    public function progression( $id ) 
+    public function progression( $id_member ) 
     {
         $db = $this->dbConnect();
-        $prog = $db->prepare( 'SELECT * FROM progression WHERE id = 1' );
-        $prog->execute( array( $id ) );
+        $prog = $db->prepare( 'SELECT * FROM progression WHERE id_Member = ?' );
+        $prog->execute( array(
+            11 
+        ));
 
         //$prog->closeCursor();
         return $prog;

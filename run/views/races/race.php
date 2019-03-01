@@ -3,10 +3,8 @@
 
 <?php // db table race used ?>
 
-<a href="index.php?action=joinRace">S'inscrire à une course</a>
-    
-</form>
-
+<a href="index.php?action=raceConfirmed">S'inscrire</a>
+   
 <?php
 while( $race = $raceView->fetch() ) 
 {

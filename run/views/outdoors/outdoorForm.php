@@ -6,6 +6,9 @@
 <form action="index.php?action=joinOutdoor" method="post">
     <div class="join">
 
+        <label for="title">Titre</label>
+            <input type="text" id="title" name="title">
+
         <label for="firstname">Prénom</label>
             <input type="text" id="firstname" name="firstname">
 

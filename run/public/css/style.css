@@ -24,6 +24,10 @@ body {
     background-color: royalblue;
 }
 
+.out {
+    text-align: center;
+}
+
 /* outdoor buttons */
 #out {
     background-color: royalblue;
@@ -96,7 +100,7 @@ input {
     text-align: center;
 }
 
-.race {
+.race, .outdoor, .prog {
     text-align: center;
 }
 

@@ -7,6 +7,7 @@ use \J\model\MembersManager;
 use \J\model\OutdoorsManager;
 use \J\model\ProgressionManager;
 use \J\model\RacesManager;
+use \J\model\CandidateManager;
 
 class Controller
 {
@@ -15,6 +16,7 @@ class Controller
     private $outdoorsManager;
     private $progressionManager;
     private $racesManager;
+    private $candidateManager;
     // constructor
     public function __construct()
     {
@@ -23,6 +25,7 @@ class Controller
         $this->outdoorsManager = new OutdoorsManager();
         $this->progressionManager = new ProgressionManager();
         $this->racesManager = new RacesManager();
+        $this->candidateManager = new CandidateManager();
     }
 
     // to connect to member area
@@ -38,7 +41,7 @@ class Controller
         {
             // stock username in session
             $_SESSION['username'] = $username;
-            $_SESSION['id'] = $id;
+            // $_SESSION['id'] = $id;
 
             require 'views/users/login.php';
         } 
@@ -69,9 +72,9 @@ class Controller
     }
 
     // navbar 'Suivi'
-    public function showProgression( $id )
+    public function showProgression( $id_member )
     {
-        $progression = $this->progressionManager->progression( $id );
+        $progression = $this->progressionManager->progression( $id_member );
 
         require 'views/progression/progression.php';
     }
@@ -109,15 +112,6 @@ class Controller
         require 'views/races/races.php';
     }
 
-    // to join race
-    public function joinRace()
-    {
-        // call to race db
-        $joinRace = $this->racesManager->joinRace( $title, $city, $outdoor );
-
-        require 'views/races/joinRace.php';
-    }
-
     // navbar 'Entrainements à plusieurs'
     public function showOutdoors()
     {
@@ -127,9 +121,9 @@ class Controller
     }
 
     // to participate to outdoor
-    public function joinOutdoor( $id_member )
+    public function joinOutdoor( $title, $id_member )
     {
-        $joinOutdoor = $this->outdoorsManager->joinOutdoor( $id_member );
+        $joinOutdoor = $this->outdoorsManager->joinOutdoor( $title, $id_member );
 
         require 'views/outdoors/joinOutdoor.php';
     }
@@ -142,11 +136,20 @@ class Controller
         require 'views/outdoors/suggestOutdoor.php';
     }
 
-    public function outdoorConfirmed( $title, $id_member )
+    public function outdoorConfirmed( $title, $description, $date, $id_member )
     {
-        $suggest = $this->outdoorsManager->suggestOutdoor( $title, $id_member );
+        $suggest = $this->outdoorsManager->suggestOutdoor( $title, $description, $date, $id_member );
 
         require 'views/outdoors/outdoorConfirmed.php';
+    }
+    
+    // confirmed race
+    public function raceConfirmed( $id, $id_member )
+    {
+        // call to race db
+        $raceConfirm = $this->racesManager->raceConfirm( $id, $id_member );
+
+        require 'views/races/raceConfirmed.php';
     }
 
     // main page

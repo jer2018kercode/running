@@ -3,8 +3,6 @@
 
 <h1>Ma progression</h1>
 
-<p>Accédez à votre progression personnalisée</p>
-
 <?php
 while( $prog = $progression->fetch() ) 
 {

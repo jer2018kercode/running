@@ -31,10 +31,19 @@ class Router
                     require 'views/users/registerForm.php';
                 }
 
+                // to be registered on website
                 elseif( $_GET['action'] == 'register' )
                 {
-                    $this->controller->register( $_POST['username'], $_POST['password'], $_POST['confpassword'],
-                    $_POST['firstname'], $_POST['lastname'], $_POST['mail'] );
+                    if( !empty( $_POST['username'] ) && !empty( $_POST['password'] ) && !empty( $_POST['confpassword'] )
+                    && !empty( $_POST['firstname'] ) && !empty( $_POST['lastname'] ) && !empty( $_POST['mail'] ) )
+                    {
+                        $this->controller->register( $_POST['username'], $_POST['password'], $_POST['confpassword'],
+                        $_POST['firstname'], $_POST['lastname'], $_POST['mail'] );
+                    }
+                    else {
+                        throw new Exception( 'Veuillez renseigner tous les champs' );
+                    }
+                    
                 }
 
                 // when user clicks on 'confirm' button to log in
@@ -45,7 +54,6 @@ class Router
                     {
                         $this->controller->connect( $_POST['user'], $_POST['password'] );
                     }
-
                     else 
                     {
                         // to go from register to sign in form
@@ -62,7 +70,7 @@ class Router
                 // when user wants to see his progression
                 elseif( $_GET['action'] == 'showProgression' )
                 {
-                    $this->controller->showProgression( $_GET['id'] );
+                    $this->controller->showProgression( $_GET['id_Member'] );
                 }
 
                 // when user wants to see his progression
@@ -77,21 +85,22 @@ class Router
                     $this->controller->showRace( $_GET['id'] );
                 }
                 
-                // when user wants to see all the races
+                // when user wants to see all races
                 elseif( $_GET['action'] == 'showRaces' )
                 {
                     $this->controller->showRaces();
                 }
 
+                // when user wants to see races infos
                 elseif( $_GET['action'] == 'racesDetails' )
                 {
                     $this->controller->racesDetails();
                 }
 
                 // when user wants to join race
-                elseif( $_GET['action'] == 'joinRace' )
+                elseif( $_GET['action'] == 'raceConfirmed' )
                 {
-                    $this->controller->joinRace();
+                    $this->controller->raceConfirmed();
                 }
 
                 // when user wants to see health articles
@@ -115,7 +124,7 @@ class Router
                 // when user wants to participate to outdoor
                 elseif( $_GET['action'] == 'joinOutdoor')
                 {
-                    $this->controller->joinOutdoor( $_GET['id_Member'] );
+                    $this->controller->joinOutdoor( $_POST['title'], $_GET['id_Member'] );
                 }
 
                 // when user wants to propose an outdoor
@@ -127,7 +136,8 @@ class Router
                 // when outdoor creation is confirmed
                 elseif( $_GET['action'] == 'outdoorConfirmed')
                 {
-                    $this->controller->outdoorConfirmed( $_POST['title'], $_GET['id_Member'] );
+                    $this->controller->outdoorConfirmed( $_POST['title'], $_POST['description'],
+                    $_POST['date'], $_GET['id_Member'] );
                 }
             } 
 

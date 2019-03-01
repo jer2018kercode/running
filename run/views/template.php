@@ -13,6 +13,11 @@
     <?php // logo Au pas de course ?>
     <a href="index.php"><img src="public/images/logo_test.png" alt="logo" id="logo" /></a>
 
+     <?php // sign up button ?>
+        <input type="button" class="go" value="S'inscrire" onclick="location.href='index.php?action=registerForm'">
+    <?php // sign in button ?>
+        <input type="button" class="go" value="Se connnecter" onclick="location.href='index.php?action=login'">
+
     <div id="menu">
             <?php // --runningView ?>
         <nav id="top">
