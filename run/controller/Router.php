@@ -28,7 +28,7 @@ class Router
                 // to show register form
                 if( $_GET['action'] == 'registerForm' )
                 {
-                    $this->controller->registerForm();
+                    require 'views/users/registerForm.php';
                 }
 
                 elseif( $_GET['action'] == 'register' )
@@ -49,8 +49,32 @@ class Router
                     else 
                     {
                         // to go from register to sign in form
-                        $this->controller->already();   
+                        require 'views/users/alreadyRegistered.php';   
                     }
+                }
+
+                // when user wants to see the outdoor trainings
+                elseif( $_GET['action'] == 'showOutdoors' )
+                {
+                    $this->controller->showOutdoors();
+                }
+
+                // when user wants to see his progression
+                elseif( $_GET['action'] == 'showProgression' )
+                {
+                    $this->controller->showProgression( $_GET['id'] );
+                }
+
+                // when user wants to see his progression
+                elseif( $_GET['action'] == 'showProgressionRedirect' )
+                {
+                    $this->controller->showProgressionRedirect( $_GET['id'] );
+                }
+
+                // when user wants to see one race
+                elseif( $_GET['action'] == 'showRace' )
+                {
+                    $this->controller->showRace( $_GET['id'] );
                 }
                 
                 // when user wants to see all the races
@@ -59,39 +83,51 @@ class Router
                     $this->controller->showRaces();
                 }
 
-                elseif( $_GET['action'] == 'racesInfos' )
+                elseif( $_GET['action'] == 'racesDetails' )
                 {
-                    $this->controller->racesInfos();
+                    $this->controller->racesDetails();
                 }
 
-                // when user wants to see his progression
-                elseif( $_GET['action'] == 'showProgression' )
+                // when user wants to join race
+                elseif( $_GET['action'] == 'joinRace' )
                 {
-                    $this->controller->showProgression();
-                }
-
-                // to go from logged page to progression page
-                elseif( $_GET['action'] == 'showProgressionRedirect' )
-                {
-                    $this->controller->showProgressionRedirect( $id_member );
-                }
-                
-                // when user wants to see the outdoor runnings
-                elseif( $_GET['action'] == 'showRunning' )
-                {
-                    $this->controller->showRunning();
+                    $this->controller->joinRace();
                 }
 
                 // when user wants to see health articles
                 elseif( $_GET['action'] == 'showHealth' )
                 {
-                    $this->controller->showHealth();
+                    require 'views/navbar/health.php';
                 }
 
                 // when user wants to contact
                 elseif( $_GET['action'] == 'showContact' )
                 {
-                    $this->controller->showContact();
+                    require 'views/navbar/contact.php';
+                }
+
+                // to have the register form
+                elseif( $_GET['action'] == 'outdoorForm')
+                {
+                    require 'views/outdoors/outdoorForm.php';
+                }
+
+                // when user wants to participate to outdoor
+                elseif( $_GET['action'] == 'joinOutdoor')
+                {
+                    $this->controller->joinOutdoor( $_GET['id_Member'] );
+                }
+
+                // when user wants to propose an outdoor
+                elseif( $_GET['action'] == 'suggestOutdoor')
+                {
+                    $this->controller->suggestOutdoor();
+                }
+
+                // when outdoor creation is confirmed
+                elseif( $_GET['action'] == 'outdoorConfirmed')
+                {
+                    $this->controller->outdoorConfirmed( $_POST['title'], $_GET['id_Member'] );
                 }
             } 
 
@@ -107,7 +143,7 @@ class Router
             die( $error = $e->getMessage() );
 
             // call to the error file
-            require 'view/errorView.php';
+            require 'views/errors.php';
         }
     }
 }

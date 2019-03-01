@@ -4,127 +4,156 @@ namespace J\controller;
 // need of member and race classes
 use \Exception;
 use \J\model\MembersManager;
-use \J\model\RacesManager;
+use \J\model\OutdoorsManager;
 use \J\model\ProgressionManager;
+use \J\model\RacesManager;
 
 class Controller
 {
     // declaration of private parameters
     private $membersManager;
-    private $racesManager;
+    private $outdoorsManager;
     private $progressionManager;
-
+    private $racesManager;
     // constructor
     public function __construct()
     {
         // association of the private paramaters with the manager classes
         $this->membersManager = new MembersManager();
-        $this->racesManager = new RacesManager();
+        $this->outdoorsManager = new OutdoorsManager();
         $this->progressionManager = new ProgressionManager();
-    }
-
-    // index page
-    public function index()
-    {
-        require 'view/indexView.php';
+        $this->racesManager = new RacesManager();
     }
 
     // to connect to member area
     public function connect( $username, $password )
     {
-        // étape 1 = récupérer mdp formulaire inscrit par l'utilisateur
-        $dbUser = $this->membersManager->verify( $username );
+        // collect username and password written by user
+        $dbUser = $this->membersManager->check( $username );
 
         $dbPass = $dbUser['password'];
-        $id;
 
-        // étape 2 = comparer mdp formulaire et bdd
+        // compare password of form with bdd
         if( password_verify( $password, $dbPass ) ) 
         {
+            // stock username in session
             $_SESSION['username'] = $username;
-            // $_SESSION['id'] = $id;
-            require 'view/loginView.php';
+            $_SESSION['id'] = $id;
+
+            require 'views/users/login.php';
         } 
+
         else 
         {
-            throw new Exception( 'Error, unvalid username or password...' );
+            throw new Exception( 'Votre nom d\'utilisateur ou votre mot de passe est invalide' );
         }
-    }
-
-    // to go from register to sign in form
-    public function already()
-    {
-        require 'view/alreadyRegisteredView.php';
-    }
-
-    // to see register form
-    public function registerForm()
-    {
-        require 'view/registerFormView.php';
     }
 
     // to create new account
     public function register( $username, $password, $confpassword,
         $firstname, $lastname, $mail ) 
-        {
+    {
+        // to check that 2 passwords are same
         if( $password != $confpassword ) 
         {
-            throw new Exception( 'Not same passwords' );
+            throw new Exception( 'Les mots de passes inscrits ne coincident pas' );
         }
 
+        // to hash password
         $pass = password_hash( $password, PASSWORD_DEFAULT );
 
         // call to member db -> insert
-        $register = $this->membersManager->registering( $username, $pass, $firstname, $lastname, $mail );
+        $register = $this->membersManager->registerMember( $username, $pass, $firstname, $lastname, $mail );
 
-        require 'view/registerView.php';
+        require 'views/users/register.php';
     }
 
     // navbar 'Suivi'
-    public function showProgression()
+    public function showProgression( $id )
     {
-        $progression = $this->progressionManager->progression( $id_member );
+        $progression = $this->progressionManager->progression( $id );
 
-        require 'view/progressionView.php';
+        require 'views/progression/progression.php';
     }
 
-    public function showProgressionRedirect( $id_member )
+    public function showProgressionRedirect( $id )
     {
-        $progressionR = $this->progressionManager->progression( $id_member );
+        $progression_ = $this->progressionManager->progression( $id );
 
-        require 'view/progressionView.php';
+        require 'views/users/login.php';
     }
 
-    // to show all the races
+    // to show one race
+    public function showRace( $id )
+    {
+        // call to race db
+        $raceView = $this->racesManager->showRace( $id );
+
+        require 'views/races/race.php';
+    }
+
+    // to show all races
     public function showRaces()
     {
         // call to race db
-        $race = $this->racesManager->showRace();
+        $racesView = $this->racesManager->showRaces();
 
-        require 'view/racesView.php';
+        require 'views/indexView.php';
     }
 
-    public function racesInfos()
+    // to have more details on races
+    public function racesDetails()
     {
-        $racesInfos = $this->racesManager->showRace();
-        require 'view/racesInfos.php';
+        $racesDetails = $this->racesManager->showRaces();
+
+        require 'views/races/races.php';
     }
 
-    // navbar 'Running'
-    public function showRunning()
+    // to join race
+    public function joinRace()
     {
-        require 'view/runningView.php';
+        // call to race db
+        $joinRace = $this->racesManager->joinRace( $title, $city, $outdoor );
+
+        require 'views/races/joinRace.php';
     }
 
-    // navbar 'Santé'
-    public function showHealth()
+    // navbar 'Entrainements à plusieurs'
+    public function showOutdoors()
     {
-        require 'view/healthView.php';
+        $outdoorsView = $this->outdoorsManager->showOutdoors();
+
+        require 'views/outdoors/showOutdoors.php';
     }
 
-    // navbar 'Contact'
-    public function showContact()
+    // to participate to outdoor
+    public function joinOutdoor( $id_member )
     {
-        require 'view/contactView.php';
+        $joinOutdoor = $this->outdoorsManager->joinOutdoor( $id_member );
+
+        require 'views/outdoors/joinOutdoor.php';
+    }
+
+    // to suggest outdoor
+    public function suggestOutdoor()
+    {
+        // $suggest = $this->outdoorsManager->suggestOutdoor();
+
+        require 'views/outdoors/suggestOutdoor.php';
+    }
+
+    public function outdoorConfirmed( $title, $id_member )
+    {
+        $suggest = $this->outdoorsManager->suggestOutdoor( $title, $id_member );
+
+        require 'views/outdoors/outdoorConfirmed.php';
+    }
+
+    // main page
+    public function index()
+    {
+        $index = $this->racesManager->showRaces();
+
+        require 'views/indexView.php';
     }
 }

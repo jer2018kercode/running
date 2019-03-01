@@ -6,54 +6,90 @@ body {
     background-color: lightgray;
 }
 
-#title {
-    text-align: center;
-}
-
+/* logo Au pas de course */
 #logo {
-    width: 5em;
+    width: 25em;
+    margin-top: 1em;
+    margin-bottom: 1.1em;
 }
 
-/* connection form --indexView */
-form {
+/* register and connexion buttons */
+.go {
+    background-color: tan;
+    color: white;
+    width: 8em;
+}
+
+.go:hover {
+    background-color: royalblue;
+}
+
+/* outdoor buttons */
+#out {
+    background-color: royalblue;
+    color: white;
+    width: 12em;
+}
+
+#out:hover {
+    background-color: tan;
+}
+
+/* navbar --indexView */
+#top {
+    text-decoration: none;
+}
+
+li {
+    display: inline-block;
+    padding-left: 1.8em;
+}
+
+li a {
+    font-size: 1.6em;
+    color: lightseagreen;
+}
+
+li a:hover {
+    color: chocolate;
+}
+/* end navbar */
+
+h1 {
     text-align: center;
 }
 
-/* username and password --indexView */
+/* username and password --loginView */
 input {
-    background-color: lightseagreen;
+    background-color: royalblue;
     color: white;
     text-align: center;
-    width: 7em;
+    width: 8em;
     margin-right: 1em;
     border-radius: 1em;
 }
 
-input:hover {
-    color: orange;
-}
-
-/* confirm button --indexView */
+/* confirm button --loginView */
 .confirm {
-    background-color: chocolate;
-    color: lightseagreen;
+    background-color: tan;
+    color: royalblue;
     font-weight: bold;
     margin-right: 1em;
     margin-top: 1.3em;
 }
 
-/* navbar --indexView */
-h1 {
-    display: inline-block;
-    padding-left: 1.8em;
+/* --loginView */
+.log_reg {
+    color: white;
+    text-align: center;
+    margin-right: 3em;
 }
 
-h1 a {
-    color: lightseagreen;
-}
-
-h1 a:hover {
-    color: chocolate;
+.confirm_reg {
+    color: white;
+    font-weight: bold;
+    margin-right: 2em;
+    margin-top: 2.3em;
 }
 
 #menu {
@@ -69,9 +105,12 @@ img {
     margin-left: 17em;
 }
 
+img#health {
+    width: 40%;
+}
+
 /* form --registerView */
 .register {
-    border: 3px solid darkblue;
     text-align: center;
 }
 
@@ -81,21 +120,4 @@ a {
 
 a:hover {
     color: darkblue;
-}
-
-/* log redirection */
-.log_reg {
-    background-color: gray;
-    color: white;
-    text-align: center;
-    width: 50em;
-    margin-right: 3em;
-}
-
-.confirm_reg {
-    background-color: chocolate;
-    color: darkblue;
-    font-weight: bold;
-    margin-right: 2em;
-    margin-top: 2.3em;
 }

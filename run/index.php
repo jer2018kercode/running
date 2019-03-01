@@ -6,4 +6,4 @@ require "vendor/autoload.php";
 use \J\controller\Router;
 
 $router = new Router;
-$router->app();
+$router->app();  

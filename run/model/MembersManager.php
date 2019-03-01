@@ -7,7 +7,7 @@ use \PDO;
 class MembersManager extends Manager
 {
     // new member in db
-    public function registering( $username, $password, $firstname, $lastname, $mail )
+    public function registerMember( $username, $password, $firstname, $lastname, $mail )
     {
         $db = $this->dbConnect();
         $register = $db->prepare( 'INSERT INTO member( username, password, firstname, lastname, mail ) VALUES( ?, ?, ?, ?, ? )' );
@@ -23,7 +23,7 @@ class MembersManager extends Manager
     }
 
     // check that username and password are correct
-    public function verify( $username )
+    public function check( $username )
     {
         $db = $this->dbConnect();
         $verify = $db->prepare( 'SELECT * FROM member WHERE username = ?' );
@@ -31,6 +31,7 @@ class MembersManager extends Manager
 
         $user = $verify->fetch();
         $verify->closeCursor();
+        
         return $user;
     }
 }

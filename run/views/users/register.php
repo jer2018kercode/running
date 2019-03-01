@@ -1,4 +1,4 @@
-<?php $title = 'Registered';?>
+<?php $title = 'Inscrit';?>
 <?php ob_start();?>
 
 <?php // db table member used ?>
@@ -19,7 +19,6 @@
 <?php
 }
 ?>
-<a href="index.php">Return to home</a>
 
 <?php $content = ob_get_clean();?>
-<?php require 'view/template.php';?>
+<?php require 'views/template.php';?>
