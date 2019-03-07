@@ -3,44 +3,70 @@ namespace J\model;
 use \J\model\Manager;
 use \PDO;
 
-// declaration of child class
+// declaration de la classe enfant
 class OutdoorsManager extends Manager 
 {
-    // show outdoors
+    // montrer toutes les sorties
     public function showOutdoors()
     {
         $db = $this->dbConnect();
-        $show = $db->prepare( 'SELECT * FROM outdoor WHERE race = 0' );
-        $show->execute();
+        $showAllOutdoors = $db->prepare( 'SELECT * FROM outdoor WHERE race = 0' );
+        $showAllOutdoors->execute();
 
-        return $show;
+        return $showAllOutdoors;
     }
 
-    // join outdoors
-    public function joinOutdoor( $title, $id_member )
+    // montrer une seule sortie
+    public function showOutdoor( $id )
     {
         $db = $this->dbConnect();
-        $join = $db->prepare( 'INSERT INTO outdoor( title, id_Member ) VALUES( ?, ? )' );
-        $join->execute( array( 
-            $title,
-            1
-        ));
+        $showOneOutdoor = $db->prepare( 'SELECT * FROM outdoor WHERE id = ?' );
+        $showOneOutdoor->execute( array( $id ) );
 
-        return $join;
+        return $showOneOutdoor;
     }
 
-    // suggest outdoors
-    public function suggestOutdoor( $title, $description, $date, $id_member )
+    // créer une sortie
+    public function createOutdoor( $title, $description, $date /* $id_member */ )
     {
         $db = $this->dbConnect();
-        $suggest = $db->prepare( 'INSERT INTO race( title, description, date, id_Member ) VALUES( ?, ?, ?, ? )' );
-        $suggest->execute( array(
+        $createOneOutdoor = $db->prepare( 'INSERT INTO outdoor( title, description, date, id_Member ) VALUES( ?, ?, ?, ? )' );
+        $createOneOutdoor->execute( array(
             $title,
             $description,
             $date,
-            1
+            8
         ));
 
-        return $suggest;
+        return $createOneOutdoor;
     }
+
+    // modifier sa sortie
+    public function updateOutdoor( $number, $title, $description, $city, $date )
+    {
+        $db = $this->dbConnect();
+        $updateOneOutdoor = $db->prepare( 'UPDATE outdoor SET title = ?, description = ?,
+        city = ?, date = ? WHERE id = ?' );
+        $updateOneOutdoor->execute( array(
+            $title,
+            $description,
+            $city,
+            $date,
+            $number
+        ));
+
+        return $updateOneOutdoor;
+    }
+
+     // supprimer sa sortie
+     public function cancelOutdoor( $number )
+     {
+        $db = $this->dbConnect();
+        $cancelOneOutdoor = $db->prepare( 'DELETE FROM outdoor WHERE id = ?' );
+        $cancelOneOutdoor->execute( array(
+            $number
+        ));
+ 
+        return $cancelOneOutdoor;
+     }
 }

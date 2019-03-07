@@ -13,7 +13,7 @@ body {
     margin-bottom: 1.1em;
 }
 
-/* register and connexion buttons */
+/* connexion et inscription */
 .go {
     background-color: tan;
     color: white;
@@ -28,7 +28,16 @@ body {
     text-align: center;
 }
 
-/* outdoor buttons */
+/* déconnexion */
+.leave {
+    margin-left: 40em;
+}
+
+.leave:hover {
+    color: lightseagreen;
+}
+
+/* boutons sorties */
 #out {
     background-color: royalblue;
     color: white;
@@ -57,7 +66,7 @@ li a {
 li a:hover {
     color: chocolate;
 }
-/* end navbar */
+/* fin navbar */
 
 h1 {
     text-align: center;
@@ -73,7 +82,7 @@ input {
     border-radius: 1em;
 }
 
-/* confirm button --loginView */
+/* bouton confirmer --loginView */
 .confirm {
     background-color: tan;
     color: royalblue;
@@ -104,6 +113,19 @@ input {
     text-align: center;
 }
 
+/* group outdoors */
+#delete a {
+    color: maroon;
+}
+
+#update a {
+    color: fuchsia;
+}
+
+#join a {
+    color: lightseagreen;
+}
+
 img {
     width: 70%;
     margin-left: 17em;
@@ -118,10 +140,34 @@ img#health {
     text-align: center;
 }
 
-a {
+/* titres courses et sortie --Index */
+.raceIndex a {
+    color: lightseagreen;
+}
+
+.outdoorIndex a {
     color: chocolate;
 }
 
-a:hover {
-    color: darkblue;
+.raceIndex a:hover, .outdoorIndex a:hover  {
+    color: royalblue;
+}
+
+/* creation outdoor form */
+#title {
+    width: 12em;
+    height: 3em;
+}
+#description {
+    width: 24em;
+    height: 7em;
+}
+#date {
+    width: 12em;
+    height: 1.8em;
+}
+
+/* image panda */
+#panda {
+    width: 2.4em;
 }

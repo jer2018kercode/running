@@ -3,10 +3,10 @@ namespace J\model;
 use \J\model\Manager;
 use \PDO;
 
-// declaration of child class
+// declaration de la classe enfant
 class MembersManager extends Manager
 {
-    // new member in db
+    // nouveau membre dans la bdd
     public function registerMember( $username, $password, $firstname, $lastname, $mail )
     {
         $db = $this->dbConnect();
@@ -22,16 +22,16 @@ class MembersManager extends Manager
         return $register;
     }
 
-    // check that username and password are correct
-    public function check( $username )
+    // connection d'un membre inscrit
+    public function connect( $username )
     {
         $db = $this->dbConnect();
-        $verify = $db->prepare( 'SELECT * FROM member WHERE username = ?' );
-        $verify->execute( array( $username ) );
+        $connect = $db->prepare( 'SELECT * FROM member WHERE username = ?' );
+        $connect->execute( array( $username ) );
 
-        $user = $verify->fetch();
-        $verify->closeCursor();
+        $userConnect = $connect->fetch();
+        $connect->closeCursor();
         
-        return $user;
+        return $userConnect;
     }
 }

@@ -1,5 +1,13 @@
-<?php $title = 'Progression';?>
+<?php $title = 'Suivi personnalisé';?>
 <?php ob_start();?>
+
+<?php 
+if( isset( $_SESSION['username'] ) )
+{ ?><img src="public/images/panda.jpg" id="panda" alt="panda" />
+    <?php
+} else 
+  { ?><p>( Je suis déconnecté )</p><?php
+  } ?>
 
 <h1>Ma progression</h1>
 
@@ -16,7 +24,6 @@ while( $prog = $progression->fetch() )
 }
 $progression->closeCursor();
 ?>
-
 
 <?php $content = ob_get_clean();?>
 <?php require 'views/template.php';?>

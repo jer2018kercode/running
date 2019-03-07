@@ -13,10 +13,12 @@
     <?php // logo Au pas de course ?>
     <a href="index.php"><img src="public/images/logo_test.png" alt="logo" id="logo" /></a>
 
-     <?php // sign up button ?>
-        <input type="button" class="go" value="S'inscrire" onclick="location.href='index.php?action=registerForm'">
-    <?php // sign in button ?>
-        <input type="button" class="go" value="Se connnecter" onclick="location.href='index.php?action=login'">
+<?php // inscription ?>
+    <a href="index.php?action=registerForm"><input type="button" class="go" value="S'inscrire"></a>
+<?php // connexion ?>
+    <a href="index.php?action=login"><input type="button" class="go" value="Se connnecter"></a>  
+<?php // déconnexion ?>
+    <a href="index.php?action=signout"><input type="button" class="leave" value="Se déconnecter"></a>
 
     <div id="menu">
             <?php // --runningView ?>
@@ -25,7 +27,7 @@
                 <li><a href="index.php?action=showOutdoors">Entrainements à plusieurs</a></li>
     
             <?php // --progressionView ?>
-                <li><a href="index.php?action=showProgression">Suivi personnalisé</a></li>
+                <li><a href="index.php?action=showProgression&id=11">Suivi personnalisé</a></li>
 
             <?php // --racesView ?>
                 <li><a href="index.php?action=racesDetails">Courses officielles</a></li>

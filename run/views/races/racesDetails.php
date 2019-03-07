@@ -1,5 +1,14 @@
 <?php $title = 'Infos Courses';?>
 <?php ob_start();?>
+<?php session_destroy() ?>
+
+<?php 
+if( isset( $_SESSION['username'] ) )
+{ ?><img src="public/images/panda.jpg" id="panda" alt="panda" />
+    <?php
+} else 
+  { ?><p>( Je suis déconnecté )</p><?php
+  } ?>
 
     <div class="race">
         <p>

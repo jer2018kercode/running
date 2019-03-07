@@ -3,20 +3,19 @@ namespace J\model;
 use \J\model\Manager;
 use \PDO;
 
-// declaration of child class
+// declaration de la classe enfant
 class ProgressionManager extends Manager
 {
-    // member's progression
-    public function progression( $id_member ) 
+    // suivi de la progession d'un utilisateur
+    public function progression( $number ) 
     {
         $db = $this->dbConnect();
-        $prog = $db->prepare( 'SELECT * FROM progression WHERE id_Member = ?' );
-        $prog->execute( array(
-            11 
+        $memberProgression = $db->prepare( 'SELECT * FROM progression WHERE id_Member = ?' );
+        $memberProgression->execute( array(
+            $number
         ));
 
         //$prog->closeCursor();
-        return $prog;
+        return $memberProgression;
     }
-
 }

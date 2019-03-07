@@ -1,4 +1,4 @@
-<?php $title = 'Rejoindre une sortie';?>
+<?php $title = 'Sortie à mettre à jour';?>
 <?php ob_start();?>
 
 <?php 
@@ -9,8 +9,7 @@ if( isset( $_SESSION['username'] ) )
   { ?><p>( Je suis déconnecté )</p><?php
   } ?>
 
-<h1>Vous avez rejoint la sortie</h1>
-
+<h1>Page de modification de sortie...</h1>
 
 <?php $content = ob_get_clean();?>
 <?php require 'views/template.php';?>

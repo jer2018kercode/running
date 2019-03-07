@@ -1,158 +1,252 @@
 <?php
-// name 'J' defined in composer.json
+// J défini dans composer.json
 namespace J\controller;
 
-// need of controller class
+// utilisation de la classer Controller
 use \Exception;
 use \J\controller\Controller;
+use \J\controller\AdminController;
 
 class Router
 {
-    // declaration of a private parameter
+    // déclaration d'un paramètre privé
     private $controller;
+    private $adminController;
 
-    // constructor
+    // constructeur
     public function __construct()
     {
-        // association of private paramater with controller class
+        // association du paramètre privé avec la classe Controller
         $this->controller = new Controller();
+        $this->adminController = new AdminController();
     }
 
     public function app()
     {
         try 
         { 
-            // when there is an action on the website
+            // en cas d'action
             if( isset( $_GET['action'] ) ) 
             {
-                // to show register form
+                // formulaire d'inscription
                 if( $_GET['action'] == 'registerForm' )
                 {
                     require 'views/users/registerForm.php';
                 }
 
-                // to be registered on website
+                // pour s'inscrire sur le site
                 elseif( $_GET['action'] == 'register' )
                 {
-                    if( !empty( $_POST['username'] ) && !empty( $_POST['password'] ) && !empty( $_POST['confpassword'] )
-                    && !empty( $_POST['firstname'] ) && !empty( $_POST['lastname'] ) && !empty( $_POST['mail'] ) )
+                    if( !empty( $_POST['username'] ) 
+                    && !empty( $_POST['password'] ) 
+                    && !empty( $_POST['confpassword'] ) 
+                    && !empty( $_POST['firstname'] ) 
+                    && !empty( $_POST['lastname'] ) 
+                    && !empty( $_POST['mail'] ) ) 
                     {
-                        $this->controller->register( $_POST['username'], $_POST['password'], $_POST['confpassword'],
-                        $_POST['firstname'], $_POST['lastname'], $_POST['mail'] );
+                        // sécurisation 
+                        $user = htmlspecialchars( $_POST['username'] );
+                        $psd = htmlspecialchars( $_POST['password'] );
+                        $psdC = htmlspecialchars( $_POST['confpassword'] );
+                        $fname = htmlspecialchars( $_POST['firstname'] );
+                        $lname = htmlspecialchars( $_POST['lastname'] );
+                        $mail = htmlspecialchars( $_POST['mail'] );
+
+                        $this->controller->register( $user, $psd, $psdC, $fname, $lname, $mail );
                     }
-                    else {
+                    else
+                    {
                         throw new Exception( 'Veuillez renseigner tous les champs' );
-                    }
-                    
+                    }  
                 }
 
-                // when user clicks on 'confirm' button to log in
+                // lorsque l'utilisateur clique sur Confirmer pour se connecter
                 elseif( $_GET['action'] == 'login' ) 
                 {
-                    // if user writes his username and his password..
+                    // lorsque le username et password sont inscrits
                     if( !empty( $_POST['user'] ) && !empty( $_POST['password'] ) ) 
                     {
-                        $this->controller->connect( $_POST['user'], $_POST['password'] );
+                        $user = htmlspecialchars( $_POST['user'] );
+                        $psd = htmlspecialchars( $_POST['password'] );
+
+                        $this->controller->connect( $user, $psd );
                     }
                     else 
                     {
-                        // to go from register to sign in form
+                        // pour aller de la page d'inscription à celle de connexion
                         require 'views/users/alreadyRegistered.php';   
                     }
                 }
 
-                // when user wants to see the outdoor trainings
+                // pour se déconnecter
+                elseif( $_GET['action'] == 'signout' )
+                {
+                    require 'views/users/signout.php';
+                }
+
+                // pour voir une sortie
+                elseif( $_GET['action'] == 'showOutdoor' )
+                {
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->showOutdoor( $id );
+                    }
+                }
+
+                // pour voir les sorties
                 elseif( $_GET['action'] == 'showOutdoors' )
                 {
                     $this->controller->showOutdoors();
                 }
 
-                // when user wants to see his progression
+                // pour voir le suivi particulier
                 elseif( $_GET['action'] == 'showProgression' )
                 {
-                    $this->controller->showProgression( $_GET['id_Member'] );
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->showProgression( $id );
+                    }
                 }
 
-                // when user wants to see his progression
+                // pour voir le suivi particulier
                 elseif( $_GET['action'] == 'showProgressionRedirect' )
                 {
-                    $this->controller->showProgressionRedirect( $_GET['id'] );
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->showProgressionRedirect( $id );
+                    }
                 }
 
-                // when user wants to see one race
+                // pour voir une course
                 elseif( $_GET['action'] == 'showRace' )
                 {
-                    $this->controller->showRace( $_GET['id'] );
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->showRace( $id );
+                    }
+                    
                 }
                 
-                // when user wants to see all races
+                // pour voir toutes les courses
                 elseif( $_GET['action'] == 'showRaces' )
                 {
                     $this->controller->showRaces();
                 }
 
-                // when user wants to see races infos
+                // pour avoir des infos supplémentaires sur les courses
                 elseif( $_GET['action'] == 'racesDetails' )
                 {
                     $this->controller->racesDetails();
                 }
 
-                // when user wants to join race
-                elseif( $_GET['action'] == 'raceConfirmed' )
+                // pour participer à une course
+                elseif( $_GET['action'] == 'raceConfirm' )
                 {
-                    $this->controller->raceConfirmed();
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->joinRace( $id );
+                    }
                 }
 
-                // when user wants to see health articles
+                // pour voir les articles santé
                 elseif( $_GET['action'] == 'showHealth' )
                 {
                     require 'views/navbar/health.php';
                 }
 
-                // when user wants to contact
+                // pour accéder à la page contact
                 elseif( $_GET['action'] == 'showContact' )
                 {
                     require 'views/navbar/contact.php';
                 }
 
-                // to have the register form
-                elseif( $_GET['action'] == 'outdoorForm')
+                // pour le formulaire des sorties
+                elseif( $_GET['action'] == 'outdoorForm' )
                 {
                     require 'views/outdoors/outdoorForm.php';
                 }
 
-                // when user wants to participate to outdoor
-                elseif( $_GET['action'] == 'joinOutdoor')
+                // pour rejoindre une sortie
+                elseif( $_GET['action'] == 'joinOutdoor' )
                 {
-                    $this->controller->joinOutdoor( $_POST['title'], $_GET['id_Member'] );
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->joinOutdoor( $id );
+                    }
                 }
 
-                // when user wants to propose an outdoor
-                elseif( $_GET['action'] == 'suggestOutdoor')
+                // pour proposer une sortie
+                elseif( $_GET['action'] == 'suggestOutdoor' )
                 {
                     $this->controller->suggestOutdoor();
                 }
 
-                // when outdoor creation is confirmed
-                elseif( $_GET['action'] == 'outdoorConfirmed')
+                // pour créer une sortie
+                elseif( $_GET['action'] == 'createdOutdoor' )
                 {
-                    $this->controller->outdoorConfirmed( $_POST['title'], $_POST['description'],
-                    $_POST['date'], $_GET['id_Member'] );
+                    $this->controller->createOutdoor( $_POST['title'], $_POST['description'],
+                    $_POST['date'] /*, $_GET['id_Member']*/ );
+                }
+
+                // prepare update
+                elseif( $_GET['action'] == 'prepareUpdateOutdoor' )
+                {
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->prepareUpdate( $id );
+                    }
+                }
+
+                // pour modifier sa sortie
+                elseif( $_GET['action'] == 'updateOutdoor' )
+                {
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 )
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->updateOutdoor( $id, $_POST['title'], $_POST['description'], 
+                        $_POST['city'], $_POST['date'] );
+                    }
+                }
+
+                // pour supprimer sa sortie
+                elseif( $_GET['action'] == 'cancelOutdoor' )
+                {
+                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 ) 
+                    {
+                        $id = htmlspecialchars( $_GET['id'] );
+
+                        $this->controller->cancelOutdoor( $id );
+                    }
                 }
             } 
 
             else 
             {
-                // to see the races list when there is no action
+                // pour voir les courses et sorties en accueil
                 $this->controller->index();
             }
         }                
    
-        // in case of error
+        // en cas d'erreur
         catch ( Exception $e ) {
             die( $error = $e->getMessage() );
 
-            // call to the error file
+            // appel au fichier erreurs
             require 'views/errors.php';
         }
     }

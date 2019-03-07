@@ -1,7 +1,7 @@
 <?php $title = 'Déjà membre';?>
 <?php ob_start();?>
 
-<?php // login form for user ?>
+<?php // formulaire de connexion pour l'utilisateur ?>
 
 <h1>Votre espace de connexion</h1>
 

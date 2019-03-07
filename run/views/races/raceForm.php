@@ -1,7 +1,7 @@
-<?php $title = 'Infos courses';?>
+<?php $title = 'Fomulaire';?>
 <?php ob_start();?>
 
-<form action="index.php?action=raceConfirmed" method="post">
+<form action="index.php?action=raceConfirm" method="post">
     <div class="confirm">
         <label for="id">Id</label>
             <input type="text" id="id" name="id">

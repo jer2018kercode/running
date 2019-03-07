@@ -1,6 +1,14 @@
 <?php $title = 'Contact';?>
 <?php ob_start();?>
 
+<?php 
+if( isset( $_SESSION['username'] ) )
+{ ?><img src="public/images/panda.jpg" id="panda" alt="panda" />
+    <?php
+} else 
+  { ?><p>( Je suis déconnecté )</p><?php
+  } ?>
+
 <h1>Contact</h1>
 
 <p>Vous rencontrez des difficultés sur notre site ? N'hésitez pas à nous contacter.<br />

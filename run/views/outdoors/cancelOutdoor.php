@@ -1,4 +1,4 @@
-<?php $title = 'Rejoindre une sortie';?>
+<?php $title = 'Supprimer une sortie';?>
 <?php ob_start();?>
 
 <?php 
@@ -9,8 +9,7 @@ if( isset( $_SESSION['username'] ) )
   { ?><p>( Je suis déconnecté )</p><?php
   } ?>
 
-<h1>Vous avez rejoint la sortie</h1>
-
+<a href="index.php?">Confirmer </a>
 
 <?php $content = ob_get_clean();?>
 <?php require 'views/template.php';?>

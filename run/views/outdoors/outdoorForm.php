@@ -1,5 +1,13 @@
-<?php $title = 'Outdoor form';?>
+<?php $title = 'Formulaire pour rejoindre une sortie';?>
 <?php ob_start();?>
+
+<?php 
+if( isset( $_SESSION['username'] ) )
+{ ?><img src="public/images/panda.jpg" id="panda" alt="panda" />
+    <?php
+} else 
+  { ?><p>( Je suis déconnecté )</p><?php
+  } ?>
 
 <h1>Inscription sortie</h1>
 

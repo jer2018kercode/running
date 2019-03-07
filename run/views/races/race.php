@@ -1,14 +1,11 @@
 <?php $title = 'Infos courses';?>
 <?php ob_start();?>
 
-<?php // db table race used ?>
-
-<a href="index.php?action=raceConfirmed">S'inscrire</a>
-   
-<?php
+<?php // bdd outdoor utilisée
 while( $race = $raceView->fetch() ) 
 {
-    ?>
+?>
+    <a href="index.php?action=raceConfirm&id=<?= $race['id'] ?>">S'inscrire</a>
     <div class="race">
         <p>
             <strong><?= htmlspecialchars( $race['title'] ); ?></strong><br /><br />

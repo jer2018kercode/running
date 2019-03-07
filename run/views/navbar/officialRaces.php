@@ -1,16 +1,18 @@
-<?php $title = 'Infos courses';?>
+<?php $title = 'Courses officielles';?>
 <?php ob_start();?>
 
-<?php // db table race used ?>
-
-<a href="index.php?action=raceConfirmed">S'inscrire à une course</a>
-    
-</form>
+<?php 
+if( isset( $_SESSION['username'] ) )
+{ ?><img src="public/images/panda.jpg" id="panda" alt="panda" />
+    <?php
+} else 
+  { ?><p>( Je suis déconnecté )</p><?php
+  } ?>
 
 <?php
 while( $race = $racesDetails->fetch() ) 
 {
-    ?>
+?>
     <div class="race">
         <p>
             <strong><?= htmlspecialchars( $race['title'] ); ?></strong><br /><br />
@@ -20,8 +22,10 @@ while( $race = $racesDetails->fetch() )
             . ' ' . htmlspecialchars( $race['postcode'] ); ?><br />
 
             <?= 'à la date du ' . htmlspecialchars( $race['date'] ); ?><br />
+            <em><?= htmlspecialchars( $race['city'] ); ?></em>
         </p>
     </div>
+    <a href="index.php?action=raceConfirm&id= <?= $race['id'] ?>">S'inscrire à cette course</a>
 <?php
 }
 $racesDetails->closeCursor();

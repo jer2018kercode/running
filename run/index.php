@@ -1,5 +1,5 @@
 <?php
-// session declaration
+// déclaration de la session
 session_start();
 
 require "vendor/autoload.php";
