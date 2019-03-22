@@ -3,7 +3,7 @@
 session_start();
 
 require "vendor/autoload.php";
-use \J\controller\Router;
+use \J\controllers\Router;
 
 $router = new Router;
-$router->app();  
+$router->app();

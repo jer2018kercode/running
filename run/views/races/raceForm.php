@@ -1,4 +1,4 @@
-<?php $title = 'Fomulaire';?>
+<?php $title = 'Fomulaire'; ?>
 <?php ob_start();?>
 
 <form action="index.php?action=raceConfirm" method="post">
@@ -14,5 +14,5 @@
     </div>
 </form>
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?>

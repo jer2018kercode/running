@@ -1,14 +1,6 @@
-<?php $title = 'Infos Courses';?>
+<?php $title = 'Infos Courses'; ?>
 <?php ob_start();?>
 <?php session_destroy() ?>
-
-<?php 
-if( isset( $_SESSION['username'] ) )
-{ ?><img src="public/images/panda.jpg" id="panda" alt="panda" />
-    <?php
-} else 
-  { ?><p>( Je suis déconnecté )</p><?php
-  } ?>
 
     <div class="race">
         <p>
@@ -27,8 +19,8 @@ while( $ri = $racesDetails->fetch() )
     </div>
 <?php
 }
-$racesDetails->closeCursor();
+    $racesDetails->closeCursor();
 ?>
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?>

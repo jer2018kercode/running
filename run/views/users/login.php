@@ -3,15 +3,17 @@
 
 <?php // table member utilisée ?>
 
-<?php // message à l'utilisateur lorsqu'il se connecte ?>
-    <p><?= 'Bonjour ' . htmlspecialchars( $_SESSION['username'] ) . ' !' . '<br />' . ' Comment allez vous aujourd\'hui ? ' .
-    '<br /><br />' . ' Vous êtes bien connecté ! ' . '<br />' . ' Pour rappel, votre numéro d\'utilisateur est '; ?><p>
+<div class="race">
+    <?php // message à l'utilisateur lorsqu'il se connecte ?>
+        <p><?= 'Bonjour ' . htmlspecialchars( $_SESSION['username'] ) . ' !' . '<br />' .
+        ' Comment allez vous aujourd\'hui ? ' . '<br /><br />' . ' Vous êtes bien connecté ! '; ?><p>
 
-<?php // --race ?>
-    <a href="index.php?action=racesDetails">Voir toutes les courses</a><br /><br />
+    <?php // --race ?>
+        <a href="index.php?action=showRaces">Les Courses</a><br /><br />
 
-<?php // --progression ?>
-    <a href="index.php?action=showProgessionRedirect&id=<?= $prog['id'] ?>">Voir ma progression personnelle</a>
+    <?php // --progression ?>
+        <a href="index.php?action=showOutdoors">Les Sorties</a>
+</div>
 
 <?php $content = ob_get_clean();?>
 <?php require 'views/template.php';?> 

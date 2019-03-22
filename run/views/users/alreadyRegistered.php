@@ -1,4 +1,4 @@
-<?php $title = 'Déjà membre';?>
+<?php $title = 'Espace de connexion';?>
 <?php ob_start();?>
 
 <?php // formulaire de connexion pour l'utilisateur ?>
@@ -8,10 +8,10 @@
 <form action="index.php?action=login" method="post">
     <div class="log_reg">
         <label for="user"></label>
-            <input type="text" placeholder="username" id="user" name="user">
+            <input type="text" placeholder="Nom d'utilisateur" id="user" name="user">
 
         <label for="password" ></label>
-            <input type="password" placeholder="password" id="password" name="password">
+            <input type="password" placeholder="Mot de passe" id="password" name="password">
     </div>
     <div class="log_reg">
         <input type="submit" class="confirm_reg" value="Confirmer">

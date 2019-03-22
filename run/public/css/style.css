@@ -4,40 +4,80 @@
 
 body {
     background-color: lightgray;
+	width:100%;
 }
 
-/* logo Au pas de course */
-#logo {
-    width: 25em;
-    margin-top: 1em;
-    margin-bottom: 1.1em;
-}
-
-/* connexion et inscription */
-.go {
-    background-color: tan;
-    color: white;
-    width: 8em;
-}
-
-.go:hover {
-    background-color: royalblue;
-}
-
-.out {
+p {
     text-align: center;
 }
 
-/* déconnexion */
+#blue {
+    background-color: royalblue;
+    color: #fff;
+    font-weight: bold;
+}
+
+#tan {
+    background-color: tan;
+    color: #fff;
+    font-weight: bold;
+}
+
+/*======================== logo ========================*/
+#logo {
+    width: 25em;
+    margin-left: 2.8em;
+}
+
+/*======================== connexion et inscription ========================*/
+#up {
+    background-color: tan;
+    color: #fff;
+    font-weight: bold;
+    width: 9em;
+    height: 1.9em;
+    margin-top: 1em;
+    margin-left: 2em;
+}
+
+#up:hover {
+    background-color: royalblue;
+}
+
+#in {
+    background-color: tan;
+    color: #fff;
+    font-weight: bold;
+    width: 9em;
+    height: 1.9em;
+}
+
+#in:hover {
+    background-color: royalblue;
+}
+
+.leave:hover {
+    background-color: tan;
+}
+
+.out {
+    text-align: right;
+}
+
+.runOffi {
+    text-align: right;
+}
+
+/*======================== déconnexion ========================*/
 .leave {
-    margin-left: 40em;
+    width: 10em;
 }
 
 .leave:hover {
     color: lightseagreen;
 }
 
-/* boutons sorties */
+/*======================== boutons sorties ========================*/
 #out {
     background-color: royalblue;
     color: white;
@@ -45,10 +85,25 @@ body {
 }
 
 #out:hover {
-    background-color: tan;
+    color: royalblue;
+    background-color: white;
+    text-decoration: none;
 }
 
-/* navbar --indexView */
+/*======================== menu ========================*/
+#menu {
+    background-color: maroon;
+    margin-top: 1.7em;
+    margin-bottom: 0.02em;
+}
+.nav-link {
+    font-size: 1.7em;
+    color: white;   
+}
+.nav-link:hover {
+    color: tan;
+}
+
 #top {
     text-decoration: none;
 }
@@ -57,45 +112,39 @@ li {
     display: inline-block;
     padding-left: 1.8em;
 }
-
-li a {
-    font-size: 1.6em;
-    color: lightseagreen;
-}
-
-li a:hover {
-    color: chocolate;
-}
-/* fin navbar */
+/*======================== fin menu ========================*/
 
 h1 {
+    color: lightseagreen;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
     text-align: center;
 }
 
-/* username and password --loginView */
+/*======================== boutons ========================*/
 input {
     background-color: royalblue;
     color: white;
     text-align: center;
-    width: 8em;
+    width: 23em;
+    height: 2.2em;
     margin-right: 1em;
-    border-radius: 1em;
 }
 
-/* bouton confirmer --loginView */
-.confirm {
-    background-color: tan;
-    color: royalblue;
-    font-weight: bold;
+textarea {
+    background-color: royalblue;
+    color: white;
+    width: 23em;
+    height: 2.2em;
     margin-right: 1em;
-    margin-top: 1.3em;
 }
+
 
 /* --loginView */
 .log_reg {
     color: white;
     text-align: center;
-    margin-right: 3em;
+    font-weight: bold;
 }
 
 .confirm_reg {
@@ -109,38 +158,62 @@ input {
     text-align: center;
 }
 
-.race, .outdoor, .prog {
+.race, .outdoor, .prog, .health {
     text-align: center;
+    color: black;
+    margin-top: 2.7em;
 }
 
-/* group outdoors */
-#delete a {
+.race a, .outdoor a, .prog a {
     color: maroon;
 }
 
+/*======================== boutons d'action sur courses ou sorties ========================*/
+#delete a {
+    color: maroon;
+    font-weight: bold;
+    padding: 1em;
+}
+
 #update a {
-    color: fuchsia;
+    color: royalblue;
+    font-weight: bold;
+    padding: 1em;
+}
+
+#renounce a {
+    color: maroon;
+    font-weight: bold;
+    padding: 1em;
 }
 
 #join a {
-    color: lightseagreen;
+    color: royalblue;
+    font-weight: bold;
+    padding: 1em;
 }
 
 img {
-    width: 70%;
-    margin-left: 17em;
+    width: 100%;
 }
 
 img#health {
-    width: 40%;
+    margin-left: 10em;
+    width: 80%;
 }
 
-/* form --registerView */
-.register {
-    text-align: center;
+.healthArt {
+    text-align: right;
 }
 
-/* titres courses et sortie --Index */
+/*======================== formulaire de création de compte ========================*/
+.register input {
+    display: block;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+
+/*======================== titres courses et sortie --Index ========================*/
 .raceIndex a {
     color: lightseagreen;
 }
@@ -153,7 +226,7 @@ img#health {
     color: royalblue;
 }
 
-/* creation outdoor form */
+/*======================== création sorties ========================*/
 #title {
     width: 12em;
     height: 3em;
@@ -167,7 +240,220 @@ img#health {
     height: 1.8em;
 }
 
-/* image panda */
-#panda {
-    width: 2.4em;
+/*======================== ========================*/
+td, th {
+    margin-left: 9em;
+    border: 2.1px solid rgb(190, 190, 190);
+    width: 33em;
+    padding: 3em;
 }
+
+td {
+    text-align: center;
+}
+
+tr {
+    background-color: tan;
+    color: royalblue;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+th[scope="col"] {
+    background-color: #696969;
+    color: #fff;
+}
+
+th[scope="row"] {
+    background-color: #d7d9f2;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 2px solid rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    font-size: .8rem;
+    text-align: center;
+}
+
+/*======================== page accueil bas ========================*/
+#flex {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.indexR {
+    margin: 0 auto;
+    display: flex;
+}
+
+.indexR table th {
+    background-color: royalblue;
+    color: #fff;
+}
+
+.indexR table td {
+    background-color: #fff;
+}
+
+.indexR table td a {
+    color: tan;
+}
+
+.indexO {
+    margin: 0 auto;
+    display: flex;
+}
+
+.indexO table th {
+    background-color: tan;
+    color: #fff;
+}
+
+.indexO table td {
+    background-color: #fff;
+}
+
+.indexO table td a {
+    color: royalblue;
+}
+
+/*======================== slider ========================*/
+.slider__btn {
+    position: absolute;
+    top: 486px;
+    width: 40px;
+    height: 40px;
+    font-size: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.9;
+  }
+  
+  .slider__btn:hover {
+    opacity: 1;
+  }
+  
+  .slider__btn:active {
+    opacity: 0.5;
+  }
+  
+  .slider__btn--left {
+    border-top: 2px solid #20262E;
+    border-left: 2px solid #20262E;
+    border-radius: 4px;
+    transform: rotate(-45deg);
+    left: 430px;
+  }
+  
+  .slider__btn--right {
+    border-top: 2px solid #20262E;
+    border-right: 2px solid #20262E;
+    border-radius: 4px;
+    transform: rotate(45deg);
+    right: 430px;
+  }
+
+  /*======================== couleurs de fond ========================*/
+
+#menu .menu-mobile{
+	display:none;
+}
+
+#menu input[type=checkbox] {
+	display:none;
+}
+
+#welcome {
+    text-align: right;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+/*================================================ médiaqueries ================================================*/
+/* petite résolution */
+@media screen and ( max-width:768px ) {
+
+    #logo {
+        width: 90%;
+    }
+
+    #menu .nav-link {
+        
+    }
+
+    #menu input[type=checkbox] {
+		display: none;
+	}
+
+    #menu .menu-mobile {
+        background-color: tan;
+        font-weight: bold;
+        text-align: center;
+        display: inline-block;
+        padding: 10px 8px;
+        }
+    
+    #menu .menu-mobile:hover {
+        color: royalblue;
+    }
+
+    #menu input[type=checkbox]:checked ~ ul li {
+        display: block;
+    }
+    
+    #slider {
+        display: none;
+    }
+}
+
+/*======================== résolution moyenne ========================*/
+@media screen and ( min-width:769px ) and ( max-width:1100px ) {
+	
+	
+}
+
+#bandeaubas {
+    background-color: maroon;
+}
+
+legend {
+    text-align: center;
+}
+
+#health {
+    text-align: center;
+}
+
+#delete {
+    text-align: center;
+}
+
+#filter {
+    width: 14em;
+}
+
+#search {
+    width: 6em;
+}
+
+#prog {
+    text-align: right;
+}
+
+.prog {
+    text-align: center;
+}
+
+label {
+    background: royalblue;
+}
+
