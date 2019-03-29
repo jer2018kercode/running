@@ -26,10 +26,10 @@ Il s'adresse à la population française.</p>
 
 <h2>Pourquoi s'y inscrire ?</h2>
 
-L’espace membre offre la possibilité de :
+<p>L’espace membre offre la possibilité de :</p>
 <ul>
-  <li>- s'inscrire à une course officielle</li>
-  <li>- participer à une sortie</li>
-  <li>- proposer une sortie</li>
-  <li>- consulter sa progression personnelle</li>
+  <li>s'inscrire à une course officielle</li>
+  <li>participer à une sortie</li>
+  <li>proposer une sortie</li>
+  <li>consulter sa progression personnelle</li>
 </ul>
