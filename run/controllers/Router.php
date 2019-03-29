@@ -2,8 +2,10 @@
 // J défini dans composer.json
 namespace J\controllers;
 
-// utilisation de la classer Controller
+// utilisation des exceptions
 use \Exception;
+
+// utilisation des controllers
 use \J\controllers\Controller;
 use \J\controllers\ArticlesController;
 use \J\controllers\CandidateController;
@@ -15,7 +17,7 @@ use \J\controllers\RacesController;
 
 class Router
 {
-    // déclaration d'un paramètre privé
+    // déclaration des paramètres privés
     private $controller;
     private $articlesController;
     private $candidateController;
@@ -46,17 +48,18 @@ class Router
             // en cas d'action
             if( isset( $_GET['action'] ) ) 
             {
-                // formulaire d'inscription
+                // le formulaire d'inscription
                 if( $_GET['action'] == 'registerForm' )
                 {
                     $error = '';
                     require 'views/users/registerForm.php';
                 }
 
-                // vérifier que tous les champs sont remplis
+                // l'inscription
                 elseif( $_GET['action'] == 'register' )
                 {
                     $error = '';
+                    // s'assurer que tous les champs sont remplis
                     if( !empty( $_POST['username'] ) 
                     && !empty( $_POST['password'] ) 
                     && !empty( $_POST['confpassword'] ) 
@@ -73,60 +76,71 @@ class Router
                         $mail = htmlspecialchars( $_POST['mail'] );
 
                         // expressions régulières
-                        $regUser = '/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/';
-                        $regPass ='/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/'; 
+                        $regUser = '/^[a-z0-9_-]{3,15}$/';
+                        $regPass ='/^(?=.*[A-Z])(?=.*\d).+$/'; 
 
                         if( !preg_match( $regUser, $user ) )
                         {
-                            $error = ' Nom d\'utilisateur non valide ';
+                            // message d'indication pour le nom d'utilisateur
+                            $error = '<p align="center"><font color="red">Nom d\'utilisateur non valide.
+                            Votre nom d\'utilisateur doit faire entre 3 et 15 caractères.</font></p>';
                         }
             
                         if( !preg_match( $regPass, $psd ) )
                         {
-                            $error = $error . '<br />' . ' Mauvais format de mot de passe ';
+                            // message d'indication pour le MDP
+                            $error = $error . '<br />' . '<p align="center"><font color="red"> Mauvais format
+                            de mot de passe. Votre mot de passe doit contenir au moins un caractère majuscule
+                            et un caractère digital.</font></p>';
                         } 
 
                         if( $error == '')
                         {
-                            // pour s'inscrire sur le site
+                            // s'inscrire sur le site
                             $this->membersController->register( $user, $psd, $psdC, $fname, $lname, $mail );
 
                             require 'views/users/register.php';
                         }
                         else 
                         {
+                            // la vue avec le formulaire
                             require 'views/users/registerForm.php';
                         }  
                     }
                     else
                     {
                         include 'views/users/registerForm.php';
+
+                        // message pour indiquer à l'utilisateur que l'inscription a échouée
                         throw new Exception( '<p align="center"><font color="red">
                         Veuillez renseigner tous les champs</font></p>' );
                     }  
                 }
 
-                // formulaire de connexion
+                // le formulaire de connexion
                 if( $_GET['action'] == 'loginForm' )
                 {
                     require 'views/users/alreadyRegistered.php';
                 }
 
-                // lorsque l'utilisateur clique sur Confirmer pour se connecter
+                // la connexion
                 elseif( $_GET['action'] == 'login' ) 
                 {
-                    // lorsque le username et password sont inscrits
+                    // lorsque le nom d'utilisateur et le MDP sont renseignés
                     if( !empty( $_POST['user'] )
                     && !empty( $_POST['password'] ) ) 
                     {
                         $user = htmlspecialchars( $_POST['user'] );
                         $psd = htmlspecialchars( $_POST['password'] );
 
+                        // se connecter sur le site
                         $this->membersController->connect( $user, $psd );
                     }
                     else 
                     {
                         require 'views/users/alreadyRegistered.php';
+
+                        // message pour indiquer à l'utilisateur que la connexion a échouée
                         throw new Exception( '<p align="center"><font color="red">
                         Nous n\'avons pas pu vous identifier</font></p>' ); 
                     }
@@ -135,12 +149,14 @@ class Router
                 // pour se déconnecter
                 elseif( $_GET['action'] == 'signout' )
                 {
+                    // détruire la session
                     session_destroy();
 
+                    // retour à la page d'accueil
                     header( 'Location: index.php' );
                 }
 
-                // préparer l'udpdate de son espace membre
+                // pour préparer la modification de son espace membre
                 elseif( $_GET['action'] == 'accountPrepare' )
                 {
                     if( isset( $_GET['id_member'] ) && $_GET['id_member'] > 0 )
@@ -151,7 +167,7 @@ class Router
                     }
                 }
 
-                // pour modifier ses infos persos
+                // pour modifier ses informations personnelles
                 elseif( $_GET['action'] == 'accountUpdate' )
                 {
                     if( !empty( $_POST['username'] )
@@ -173,7 +189,7 @@ class Router
                     }
                 }
 
-                // pour voir une sortie
+                // pour voir une seule sortie
                 elseif( $_GET['action'] == 'showOutdoor' )
                 {
                     if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 )
@@ -187,22 +203,20 @@ class Router
                 // pour voir toutes les sorties
                 elseif( $_GET['action'] == 'showOutdoors' )
                 {
+                    // si l'utilisateur renseigne la barre de recherche...
                     if( isset( $_POST['filter'] ) )
                     {
                         $filter = htmlspecialchars( $_POST['filter'] );
 
+                        // on affiche la ou les sortie(s) en lien avec la demande
                         $this->outdoorsController->showOutdoors( $filter );
                     } 
+                    // ...sinon 
                     else
                     {
+                        // on affiche toutes les sorties
                         $this->outdoorsController->showOutdoors();
                     }
-                }
-
-                // pour le formulaire des sorties
-                elseif( $_GET['action'] == 'outdoorForm' )
-                {
-                    require 'views/outdoors/outdoorForm.php';
                 }
 
                 // pour rejoindre une sortie
@@ -221,6 +235,7 @@ class Router
                 // pour proposer une sortie
                 elseif( $_GET['action'] == 'suggestOutdoor' )
                 {
+                    // la vue du formulaire de création de sortie
                     require 'views/outdoors/suggestOutdoor.php';
                 }
 
@@ -243,7 +258,7 @@ class Router
                     }
                 }
 
-                // préparation de l'update de la sortie
+                // pour préparer la mise à jour de la sortie
                 elseif( $_GET['action'] == 'prepareUpdateOutdoor' )
                 {
                     if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 )
@@ -277,12 +292,14 @@ class Router
                     // }
                 }
 
-                // pour annuler sa participation
+                // pour annuler sa participation à une sortie
                 elseif( $_GET['action'] == 'renounceOutdoor' )
                 {
-                    if( isset( $_GET['id'] ) && $_GET['id'] > 0 ) 
+                    if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 ) 
                     {
-                        $this->candidateController->renounceOutdoor( $_GET['id'] );
+                        $id_outdoor = htmlspecialchars( $_GET['id_outdoor'] );
+
+                        $this->candidateController->renounceOutdoor( $id_outdoor );
                     }
                 }
 
@@ -297,27 +314,27 @@ class Router
                     }
                 }
 
-                // pour voir toutes les commentaires
+                // pour voir tous les commentaires
                 elseif( $_GET['action'] == 'showComments' )
                 {
                     $this->commentsController->showComments();
                 }
 
-                // pour accéder au formulaire
+                // pour accéder au formulaire des commentaires
                 elseif( $_GET['action'] == 'commentsForm' )
                 {
                     require 'views/comments/commentsForm.php';
                 }
 
-                // pour commenter
+                // pour commenter une sortie
                 elseif( $_GET['action'] == 'addComment' )
                 {
                     $this->commentsController->addComment(
-                        $_POST['content'], $_POST['date'], $_SESSION['id']
+                        $_POST['content'], $_SESSION['id'], $_GET['id_outdoor']
                     );
                 }
 
-                // pour voir une course
+                // pour voir une seule course
                 elseif( $_GET['action'] == 'showRace' )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0 )
@@ -331,14 +348,17 @@ class Router
                 // pour voir toutes les courses
                 elseif( $_GET['action'] == 'showRaces' )
                 {
+                    // si l'utilisateur renseigne la barre de recherche...
                     if( isset( $_POST['filter'] ) )
                     {
                         $filter = htmlspecialchars( $_POST['filter'] );
 
+                        // on affiche la ou les course(s) en fonction de la demande
                         $this->racesController->showRaces( $filter );
                     } 
                     else
                     {
+                        // ...sinon on affiche toutes les courses
                         $this->racesController->showRaces();
                     }
                 }
@@ -362,14 +382,15 @@ class Router
                     }
                 }
 
-                // pour accéder au formulaire de création de course (admin)
+                // pour accéder au formulaire de création de course (administrateur)
                 elseif( $_GET['action'] == 'newRaceForm' )
                 {
                     require 'views/races/newRaceForm.php';
                 }
 
-                // pour créer une course (admin)
-                elseif( $_GET['action'] == 'newRace' )
+                // pour créer une course (administrateur)
+                elseif( $_GET['action'] == 'newRace' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( !empty( $_POST['title'] )
                     && !empty( $_POST['description'] )
@@ -387,19 +408,21 @@ class Router
                     }
                 }
 
-                // préparer l'udpdate de la course (admin)
-                elseif( $_GET['action'] == 'initializeRaceUpdate' )
+                // pour préparer la mise à jour de la course (administrateur)
+                elseif( $_GET['action'] == 'initializeRaceUpdate' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0 )
                     {
-                        $id_race = htmlspecialchars( $_GET['id_race'] );
+                        $id = htmlspecialchars( $_GET['id_race'] );
 
-                        $this->racesController->initializeRaceUpdate( $id_race );
+                        $this->racesController->initializeRaceUpdate( $id );
                     }
                 }
 
-                // pour modifier une course (admin)
-                elseif( $_GET['action'] == 'updateRace' )
+                // pour modifier une course (administrateur)
+                elseif( $_GET['action'] == 'updateRace' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0
                     && !empty( $_POST['title'] )
@@ -417,7 +440,18 @@ class Router
                     }
                 }
 
-                // pour supprimer une course (admin)
+                // pour annuler sa participation à une course
+                elseif( $_GET['action'] == 'renounceRace' )
+                {
+                    if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0 ) 
+                    {
+                        $id_race = htmlspecialchars( $_GET['id_race'] );
+                        
+                        $this->candidateController->renounceRace( $id_race );
+                    }
+                }
+
+                // pour supprimer une course (administrateur)
                 elseif( $_GET['action'] == 'cancelRace' )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0 ) 
@@ -428,7 +462,7 @@ class Router
                     }
                 }
 
-                // pour voir le suivi particulier
+                // pour voir son suivi particulier
                 elseif( $_GET['action'] == 'showProgression' )
                 {
                     if( isset( $_GET['id_member'] ) && $_GET['id_member'] > 0 )
@@ -465,13 +499,13 @@ class Router
                     }
                 }
 
-                // pour voir les articles santé
+                // pour voir tous les articles santé
                 elseif( $_GET['action'] == 'showHealth' )
                 {
                     $this->articlesController->showArticles();
                 }
 
-                // pour voir un article santé
+                // pour voir un seul article santé
                 elseif( $_GET['action'] == 'showArticle' )
                 {
                     if( isset( $_GET['id_article'] ) && $_GET['id_article'] > 0 )
@@ -482,14 +516,16 @@ class Router
                     }  
                 }
 
-                // pour accéder au formulaire de publication (admin)
-                elseif( $_GET['action'] == 'articleForm' )
+                // pour accéder au formulaire de publication d'article (administrateur)
+                elseif( $_GET['action'] == 'articleForm' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     require 'views/health/healthForm.php';
                 }
 
-                // pour publier un article santé (admin)
-                elseif( $_GET['action'] == 'publishArticle' )
+                // pour publier un article santé (administrateur)
+                elseif( $_GET['action'] == 'publishArticle' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( !empty( $_POST['title'] )
                     && !empty( $_POST['description'] )
@@ -505,7 +541,7 @@ class Router
                     }
                 }
 
-                // préparer la modification d'un article
+                // pour préparer la modification d'un article
                 elseif( $_GET['action'] == 'changeArticleForm' )
                 {
                     if( isset( $_GET['id_article'] ) && $_GET['id_article'] > 0 )
@@ -533,7 +569,7 @@ class Router
                     }
                 }
 
-                // pour supprimer une article (admin)
+                // pour supprimer un article (administrateur)
                 elseif( $_GET['action'] == 'cancelArticle' )
                 {
                     if( isset( $_GET['id_article'] ) && $_GET['id_article'] > 0 ) 
@@ -550,13 +586,13 @@ class Router
                     require 'views/contact/contact.php';
                 }
 
-                // pour contacter
+                // pour nous contacter
                 elseif( $_GET['action'] == 'contactUs' )
                 {
                     require 'views/contact/contactUs.php';
                 }
 
-                // pour accéder à son profil
+                // pour accéder à son profil personnel
                 elseif( $_GET['action'] == 'showArea' )
                 {
                     if( isset( $_GET['id_member'] ) && $_GET['id_member'] > 0 )
@@ -576,7 +612,8 @@ class Router
         }                
    
         // en cas d'erreur
-        catch ( Exception $e ) {
+        catch ( Exception $e )
+        {
             die( $error = $e->getMessage() );
 
             // appel au fichier erreurs

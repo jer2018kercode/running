@@ -1,5 +1,7 @@
-<?php $title = 'Entrainements à plusieurs';?>
-<?php ob_start();?>
+<?php $title = 'Entrainements à plusieurs'; ?>
+<?php ob_start(); ?>
+
+<h1>Les sorties</h1>
 
 <form action="index.php?action=showOutdoors" method="post">
     <div class="filter">
@@ -46,5 +48,5 @@ while( $outdoors = $outdoorsView->fetch() )
 ?>
 </div>
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?>

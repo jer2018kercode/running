@@ -1,6 +1,8 @@
 <?php $title = 'Courses officielles'; ?>
 <?php ob_start();?>
 
+<h1>Les courses officielles</h1>
+
 <form action="index.php?action=showRaces" method="post">
     <div class="filter">
         <label for="filter"></label>

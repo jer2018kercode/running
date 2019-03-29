@@ -36,7 +36,7 @@ class ProgressionManager extends Manager
         return $save;
     }
 
-    // supprimer une course (admin)
+    // supprimer une course (administrateur)
     public function deleteProg( $id_progression )
     {
         $db = $this->dbConnect();

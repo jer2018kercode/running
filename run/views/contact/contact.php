@@ -1,5 +1,7 @@
-<?php $title = 'Contact';?>
-<?php ob_start();?>
+<?php $title = 'Contact'; ?>
+<?php ob_start(); ?>
+
+<h1>Espace contact</h1>
 
 <div id="contact">
     <p>Vous rencontrez des difficultés sur notre site ? N'hésitez pas à nous contacter.<br />
@@ -56,5 +58,5 @@
     }
 ?>
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?>

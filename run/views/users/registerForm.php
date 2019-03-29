@@ -1,6 +1,8 @@
 <?php $title = 'Formulaire d\'inscrption'; ?>
 <?php ob_start(); ?>
 
+<h1>Inscription</h1>
+
 <?php // en cas de compte existant ?>
 <span id="update"><a href="index.php?action=login">Vous avez déjà un compte</a></span>
 

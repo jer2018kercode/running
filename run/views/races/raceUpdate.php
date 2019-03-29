@@ -3,8 +3,6 @@
 
 <h1>Modification de course</h1>
 
-<?php $initialize = $initializeRace->fetch(); ?>
-
 <form action="index.php?action=updateRace&id_race=<?= $initialize['id'] ?>" method="post">
 <div class="initialize">
     <label for="title">Titre</label>

@@ -21,7 +21,7 @@
         while( $race = $racesIndex->fetch() ) 
         {
         ?>
-            <table style="border-collapse: separate; border-spacing: 0.1px;">
+            <table>
                 <tr>
                     <th><?= htmlspecialchars( $race['date'] ); ?></th>
                 </tr>
@@ -42,7 +42,7 @@
         while( $outdoor = $outdoorsIndex->fetch() ) 
         {
         ?>
-            <table style="border-collapse: separate; border-spacing: 0.1px;">
+            <table>
                 <tr>
                     <th><?= htmlspecialchars( $outdoor['date'] ); ?></th>
                 </tr>

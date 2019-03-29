@@ -7,6 +7,7 @@
     <title><?= $title ?></title>
     <link rel="stylesheet" href="public/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/css/style.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 
 <body>
@@ -20,17 +21,19 @@
 
         <a href="index.php?action=showArea&id_member=<?= $_SESSION['id'] ?>"> Mon Espace</a><br />
         
-        <a href="index.php?action=signout"><input type="button" class="leave" value="Se déconnecter"></a>
+        <a href="index.php?action=signout"><input type="button" id="leave" value="Se déconnecter"></a>
     </div>
 <?php
     }
     else
     { 
 ?>
+    <div id="bye">
         <?php // inscription ?>
         <a href="index.php?action=registerForm"><input type="button" id="up" value="S'inscrire"></a>
         <?php // connexion ?>
         <a href="index.php?action=loginForm"><input type="button" id="in" value="Se connnecter"></a>
+    </div>
 <?php
     }
 ?> 

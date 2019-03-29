@@ -5,6 +5,7 @@ use \Exception;
 use \J\models\OutdoorsManager;
 use \J\models\CandidateManager;
 
+// gestion des sorties
 class OutdoorsController
 {
     // déclaration des paramètres privés
@@ -14,7 +15,7 @@ class OutdoorsController
     // constructeur
     public function __construct()
     {
-        // association des paramètres privés avec les classes
+        // association des paramètres privés avec les classes des modèles
         $this->outdoorsManager = new OutdoorsManager();
         $this->candidateManager = new CandidateManager();
     }
@@ -24,10 +25,12 @@ class OutdoorsController
     {
         if( isset( $filter ) )
         {
+            // les sorties en fonction du filtre
             $outdoorsView = $this->outdoorsManager->showOutdoorsWithFilter( $filter );
         }
         else
         {
+            // toutes les sorties
             $outdoorsView = $this->outdoorsManager->showOutdoors();
         }
 
@@ -45,8 +48,13 @@ class OutdoorsController
     // pour voir une seule sortie
     public function showOutdoor( $id )
     {
+        // tous les participants à une sortie
         $candidates = $this->candidateManager->outdoorCandidates( $id );
+
+        // une sortie
         $outdoor = $this->outdoorsManager->showOutdoor( $id );
+
+        $id_Member = $outdoor['id_Member'];
 
         require 'views/outdoors/outdoor.php';
     }
@@ -56,7 +64,7 @@ class OutdoorsController
     {
         $suggest = $this->outdoorsManager->createOutdoor( $title, $description, $city, $date, $id_member );
 
-        require 'views/outdoors/outdoorConfirmed.php';
+        header( 'Location: index.php?action=showOutdoors' );
     }
 
     // pour préparer l'update de sa sortie
@@ -68,11 +76,12 @@ class OutdoorsController
     }
 
     // pour modifier sa sortie
-    public function updateOutdoor( $number, $title, $description, $city, $date )
+    public function updateOutdoor( $id_outdoor, $title, $description, $city, $date )
     {
-        $update = $this->outdoorsManager->updateOutdoor( $number, $title, $description, $city, $date );
+        $update = $this->outdoorsManager->updateOutdoor( $id_outdoor, $title, $description, $city, $date );
 
-        header( 'Location: index.php?action=showOutdoor&id_outdoor=' . $number );
+        // pour afficher la sortie avec les modifications apportées
+        header( 'Location: index.php?action=showOutdoor&id_outdoor=' . $id_outdoor );
     }
 
     // pour annuler sa sortie
@@ -80,6 +89,6 @@ class OutdoorsController
     {
         $cancel = $this->outdoorsManager->cancelOutdoor( $id_outdoor );
 
-        require 'views/outdoors/cancelOutdoor.php';
+        header( 'Location: index.php?action=showOutdoors' );
     }
 }

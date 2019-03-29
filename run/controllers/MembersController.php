@@ -4,15 +4,16 @@ namespace J\controllers;
 use \Exception;
 use \J\models\MembersManager;
 
+// gestion des utilisateurs
 class MembersController
 {
-    // déclaration des paramètres privés
+    // déclaration du paramètre privé
     private $membersManager;
 
     // constructeur
     public function __construct()
     {
-        // association des paramètres privés avec les classes
+        // association du paramètre privé avec la classe du modèle
         $this->membersManager = new MembersManager();
     }
 
@@ -20,10 +21,13 @@ class MembersController
     public function register( $username, $password, $confpassword,
         $firstname, $lastname, $mail ) 
     {
-        // pour vérifier que les mots de passe coïncident bien
+        // pour vérifier que les mots de passe coïncident bien entre eux
         if( $password != $confpassword ) 
         {
+            // la vue du formulaire d'inscription
             include 'views/users/registerForm.php';
+
+            // message d'erreur lorsque les mots de passes inscrits ne sont pas les mêmes
             throw new Exception( 'Les mots de passe inscrits ne coincident pas' );
         }
 
@@ -39,20 +43,21 @@ class MembersController
     // pour se connecter à son espace membre 
     public function connect( $username, $password )
     {
-        // récupérer l'username et le password saisis par l'utilisateur
-        $dbUser = $this->membersManager->connect( $username );
+        // récupérer dans la table member de la bdd
+        $dbCatch = $this->membersManager->connect( $username );
 
-        $dbPass = $dbUser['password'];
+        // récupérer le mot de passe 
+        $dbPass = $dbCatch['password'];
 
-        // comparer le mot de passe du formulaire et de la bdd
+        // comparer le mot de passe du formulaire avec celui de la bdd
         if( password_verify( $password, $dbPass ) ) 
         {
-            // stocker l'username dans une session
-            $_SESSION['username'] = $dbUser['username'];
-            $_SESSION['id'] = $dbUser['id'];
-            $_SESSION['level'] = $dbUser['level'];
+            // stocker dans une session
+            $_SESSION['username'] = $dbCatch['username'];
+            $_SESSION['id'] = $dbCatch['id'];
+            $_SESSION['level'] = $dbCatch['level'];
 
-            require 'views/users/login.php';
+            header( 'Location: index.php' );
         } 
         else 
         {
@@ -78,10 +83,13 @@ class MembersController
         require 'views/users/myAreaForm.php';
     }
 
-    // pour modifier ses données persos
+    // pour modifier ses données personnelles
     public function accountUpdate( $username, $password, $firstname, $lastname, $mail, $id_member )
     {
-        $update = $this->membersManager->accountUpdate( $username, $password, $firstname,
+        // pour hasher son mot de passe qu'on modifie
+        $passChange = password_hash( $password, PASSWORD_DEFAULT );
+
+        $update = $this->membersManager->accountUpdate( $username, $passChange, $firstname,
         $lastname, $mail, $id_member );
 
         header( 'Location: index.php?action=accountPrepare&id_member=' . $id_member );

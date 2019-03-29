@@ -30,18 +30,18 @@ class ArticlesManager extends Manager
         return $showOneArticle;
     }
 
-    // publier un article (admin)
-    public function newArticle( $title, $description, $date, $id )
+    // publier un article (administrateur)
+    public function newArticle( $title, $description, $date, $id_member )
     {
         $db = $this->dbConnect();
         $newArticle = $db->prepare( 'INSERT INTO article( title, content, date, id_Member ) VALUES
         ( ?, ?, ?, ? )' );
-        $newArticle->execute( array( $title, $description, $date, $id ) );
+        $newArticle->execute( array( $title, $description, $date, $id_member ) );
         
         return $newArticle;
     }
 
-    // modifier un article (admin)
+    // modifier un article (administrateur)
     public function updateArticle( $title, $description, $date, $id_article )
     {
         $db = $this->dbConnect();
@@ -52,7 +52,7 @@ class ArticlesManager extends Manager
         return $changeArticle;
     }
 
-    // supprimer un article (admin)
+    // supprimer un article (administrateur)
     public function cancelArticle( $id_article )
     {
         $db = $this->dbConnect();

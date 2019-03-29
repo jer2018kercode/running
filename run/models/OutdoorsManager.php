@@ -35,7 +35,7 @@ class OutdoorsManager extends Manager
     {
         $db = $this->dbConnect();
         $showOneOutdoor = $db->prepare( 'SELECT outdoor.id, title, description, outdoor.city, outdoor.postcode,
-        username, DATE_FORMAT( date, \' %d/%m/%Y \' ) AS date FROM outdoor INNER JOIN member ON
+        outdoor.id_Member, username, DATE_FORMAT( date, \' %d/%m/%Y \' ) AS date FROM outdoor INNER JOIN member ON
         outdoor.id_Member = member.id WHERE outdoor.id = ?' );
         $showOneOutdoor->execute( array( $id ) );
 
@@ -44,7 +44,7 @@ class OutdoorsManager extends Manager
         return $show;
     }
 
-    // créer une sortie (admin ou membre créateur)
+    // créer une sortie (administrateur ou membre créateur)
     public function createOutdoor( $title, $description, $city, $date, $id_member )
     {
         $db = $this->dbConnect();
@@ -55,18 +55,18 @@ class OutdoorsManager extends Manager
         return $createOneOutdoor;
     }
 
-    // modifier sa sortie (admin ou membre créateur)
-    public function updateOutdoor( $number, $title, $description, $city, $date )
+    // modifier sa sortie (administrateur ou membre créateur)
+    public function updateOutdoor( $id_outdoor, $title, $description, $city, $date )
     {
         $db = $this->dbConnect();
         $updateOneOutdoor = $db->prepare( 'UPDATE outdoor SET title = ?, description = ?,
         city = ?, date = ? WHERE id = ?' );
-        $updateOneOutdoor->execute( array( $title, $description, $city, $date, $number ) );
+        $updateOneOutdoor->execute( array( $title, $description, $city, $date, $id_outdoor ) );
 
         return $updateOneOutdoor;
     }
 
-    // supprimer sa sortie (admin ou membre créateur)
+    // supprimer sa sortie (administrateur ou membre créateur)
     public function cancelOutdoor( $id_outdoor )
     {
         $db = $this->dbConnect();

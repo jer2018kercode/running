@@ -10,12 +10,12 @@ while( $private = $space->fetch() )
 ?>
     <div class="race">
         <p>
-            <?= 'Pseudo : ' ?><a href="#"><?= htmlspecialchars( $private['username'] ); ?></a><br /><br />
+            <?= 'Pseudo : ' ?><?= htmlspecialchars( $private['username'] ); ?><br /><br />
 
-            <?= 'Prénom : ' ?><a href="#"><?= htmlspecialchars( $private['firstname'] ); ?></a><br />
-            <?= 'Nom : ' ?><a href="#"><?= htmlspecialchars( $private['lastname'] ); ?></a><br /><br />
+            <?= 'Prénom : ' ?><?= htmlspecialchars( $private['firstname'] ); ?><br />
+            <?= 'Nom : ' ?><?= htmlspecialchars( $private['lastname'] ); ?><br /><br />
 
-            <?= 'Adresse mail : ' ?><a href="#"><?= htmlspecialchars( $private['mail'] ); ?></a><br /><br />
+            <?= 'Adresse mail : ' ?><?= htmlspecialchars( $private['mail'] ); ?><br /><br />
 
             <?php
                 if( isset( $_SESSION['level'] ) && $_SESSION['level'] == 1 )
@@ -26,7 +26,7 @@ while( $private = $space->fetch() )
                 }
             ?>    
                 <span id="update"><a href="index.php?action=accountPrepare&id_member=<?=
-                $private['id'] ?>">Modif</a></span>
+                $private['id'] ?>">Modifier</a></span>
 
         </p>
     </div>

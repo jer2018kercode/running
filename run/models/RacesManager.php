@@ -34,7 +34,7 @@ class RacesManager extends Manager
     {
         $db = $this->dbConnect();
         $showOneRace = $db->prepare( 'SELECT id, title, description, city, postcode, race,
-        id_Member, DATE_FORMAT( date, \' %d/%m/%Y \' ) AS date FROM outdoor WHERE id = ?' );
+        id_Member, DATE_FORMAT( date, \' %d/%m/%Y \' ) AS date FROM outdoor WHERE id = ? AND race = 1' );
         $showOneRace->execute( array( $id ) );
 
         $show = $showOneRace->fetch();
@@ -42,7 +42,7 @@ class RacesManager extends Manager
         return $show;
     }
 
-    // créer une course (admin)
+    // créer une course (administrateur)
     public function newRace( $title, $description, $city, $date, $id_member )
     {
         $db = $this->dbConnect();
@@ -53,19 +53,19 @@ class RacesManager extends Manager
         return $createRace;
     }
 
-    // modifier une course (admin)
-    public function updateRace( $number, $title, $description, $city, $date )
+    // modifier une course (administrateur)
+    public function updateRace( $id_race, $title, $description, $city, $date )
     {
         $db = $this->dbConnect();
         $updateOneRace = $db->prepare( 'UPDATE outdoor SET title = ?, description = ?,
         city = ?, date = ? WHERE id = ?' );
-        $updateOneRace->execute( array( $title, $description, $city, $date, $number ) );
+        $updateOneRace->execute( array( $title, $description, $city, $date, $id_race ) );
 
         return $updateOneRace;
     }
 
-    // supprimer une course (admin)
-    public function deleteRace( $number )
+    // supprimer une course (administrateur)
+    public function deleteRace( $id_race )
     {
         $db = $this->dbConnect();
         $participate = $db->prepare( 'DELETE FROM participates WHERE id_Outdoor = ?' );
@@ -73,7 +73,7 @@ class RacesManager extends Manager
 
         $db = $this->dbConnect();
         $deleteOneRace = $db->prepare( 'DELETE FROM outdoor WHERE id = ?' );
-        $deleteOneRace->execute( array( $number ) );
+        $deleteOneRace->execute( array( $id_race ) );
   
         return $deleteOneRace;
     }

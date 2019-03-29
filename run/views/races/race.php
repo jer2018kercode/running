@@ -1,5 +1,5 @@
 <?php $title = 'Détails courses'; ?>
-<?php ob_start();?>
+<?php ob_start(); ?>
 
 <div class="race">
     <p>
@@ -8,11 +8,24 @@
         <?= htmlspecialchars( $race['description'] ) . ' ' . '<br />' . '<br />' . htmlspecialchars(
             $race['city'] ) . ' ' . '<br />' . htmlspecialchars( $race['date'] ); ?><br />
     </p>
-<?php 
-    if( isset( $_SESSION['username'] ) )
+
+<?php // les participantts
+    if( isset( $_SESSION['level'] ) && $_SESSION['level'] == 1 || isset( $_SESSION['id'] ) )
+    {
+        while( $can = $candidate->fetch() ) 
+        {
+?>
+            <?= htmlspecialchars( $can['username'] ); ?><br />
+<?php
+        }
+            $candidate->closeCursor();
+    }
+
+    // participer à une couse
+    if( isset( $_SESSION['id'] ) )
     {
 ?>
-        <?php // participer à une couse ?>
+        <?php  ?>
         <span id="join"><a href="index.php?action=raceConfirm&id_race=<?=
         $race['id'] ?>">S'inscrire</a></span>
 <?php
@@ -23,39 +36,34 @@
         <span id="join"><a href="index.php?action=login">S'inscrire</a></span>
 <?php 
     }
-?>
 
-<?php // annuler sa participation 
-    if( isset( $_SESSION['username'] ) )
+    // annuler sa participation 
+    if( isset( $_SESSION['id'] ) )
     {
 ?>
-        <span id="renounce"><a href="index.php?action=renounceOutdoor&id=<?=
+        <span id="renounce"><a href="index.php?action=renounceRace&id_race=<?=
         $race['id'] ?>">Se désinscrire</a></span>
 <?php
     } 
-?>
 
-<?php
+    // modifier une course (admin)
     if( isset( $_SESSION['level'] ) && $_SESSION['level'] == 1 )
     {
 ?>
-        <?php // modifier une course (admin) ?>
         <span id="update"><a href="index.php?action=initializeRaceUpdate&id_race=<?=
         $race['id'] ?>">Modifier</a></span>
 <?php
     } 
-?>
 
-<?php
+    // supprimer une course (admin)
     if( isset( $_SESSION['level'] ) && $_SESSION['level'] == 1 )
     {
 ?>
-        <?php // supprimer une course (admin) ?>
         <span id="delete"><a href="index.php?action=cancelRace&id_race=<?= $race['id'] ?>">Supprimer</a></span>
 <?php
     }
 ?>
-    </div>
+</div>
 
 <?php $content = ob_get_clean(); ?>
 <?php require 'views/template.php'; ?>

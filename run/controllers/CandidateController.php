@@ -4,46 +4,48 @@ namespace J\controllers;
 use \Exception;
 use \J\models\CandidateManager;
 
+// gestion des participants aux courses et/ou aux sorties
 class CandidateController
 {
-    // déclaration des paramètres privés
+    // déclaration d'un paramètre privé
     private $candidateManager;
 
     // constructeur
     public function __construct()
     {
-        // association des paramètres privés avec les classes
+        // association du paramètre privé avec la classe du modèle
         $this->candidateManager = new CandidateManager();
     }
 
     // pour rejoindre une course officielle
-    public function joinRace( $userRace, $id_outdoor )
+    public function joinRace( $id_race, $id_member )
     {
-        $joinRace = $this->candidateManager->joinRace( $userRace, $id_outdoor );
+        $joinRace = $this->candidateManager->joinRace( $id_race, $id_member );
 
-        require 'views/races/raceConfirm.php';
-    }
-
-    // pour voir tous les participants d'une sortie
-    public function outdoorCandidates( $id_outdoor )
-    {
-        $candidate = $this->candidateManager->outdoorCandidates( $id_outdoor );
-
+        header( 'Location: index.php?action=showRace&id_race=' . $id_race );
     }
 
     // pour rejoindre une sortie
-    public function joinOutdoor( $userOutdoor, $id_outdoor )
+    public function joinOutdoor( $id_member, $id_outdoor )
     {
-        $joinOutdoor = $this->candidateManager->joinOutdoor( $userOutdoor, $id_outdoor );
+        $joinOutdoor = $this->candidateManager->joinOutdoor( $id_member, $id_outdoor );
 
-        require 'views/outdoors/joinOutdoor.php';
+        header( 'Location: index.php?action=showOutdoor&id_outdoor=' . $id_outdoor );
     }
 
     // pour annuler sa participation à une sortie
-    public function renounceOutdoor( $id )
+    public function renounceOutdoor( $id_outdoor )
     {
-        $renounce = $this->candidateManager->renounceOutdoor( $id );
+        $renounceOutdoor = $this->candidateManager->renounceOutdoor( $id_outdoor );
 
-        require 'views/outdoors/renounceOutdoor.php';
+        header( 'Location: index.php?action=showOutdoor&id_outdoor=' . $id_outdoor );
+    }
+
+    // pour annuler sa participation à une course
+    public function renounceRace( $id_race )
+    {
+        $renounceRace = $this->candidateManager->renounceRace( $id_race );
+
+        header( 'Location: index.php?action=showRace&id_race=' . $id_race );
     }
 } 

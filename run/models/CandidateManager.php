@@ -7,11 +7,11 @@ use \PDO;
 class CandidateManager extends Manager
 {
     // rejoindre une course
-    public function joinRace( $userRace, $id_outdoor )
+    public function joinRace( $id_race, $id_member )
     {
         $db = $this->dbConnect();
         $addMemberToRace = $db->prepare( 'INSERT INTO participates( id_Member, id_Outdoor ) VALUES( ?, ? )' );
-        $addMemberToRace->execute( array( $userRace, $id_outdoor ) );
+        $addMemberToRace->execute( array( $id_member, $id_race ) );
 
         return $addMemberToRace;
     }
@@ -28,22 +28,32 @@ class CandidateManager extends Manager
     }
 
     // rejoindre une sortie
-    public function joinOutdoor( $userOutdoor, $id_outdoor )
+    public function joinOutdoor( $id_member, $id_outdoor )
     {
         $db = $this->dbConnect();
         $addMemberToOutdoor = $db->prepare( 'INSERT  INTO participates( id_Member, id_Outdoor ) VALUES( ?, ? )' );
-        $addMemberToOutdoor->execute( array( $userOutdoor, $id_outdoor ) );
+        $addMemberToOutdoor->execute( array( $id_member, $id_outdoor ) );
 
         return $addMemberToOutdoor;
     }
 
     // supprimer sa participation
-    public function renounceOutdoor( $id )
+    public function renounceOutdoor( $id_outdoor )
     {
         $db = $this->dbConnect();
         $renounceOutdoor = $db->prepare( 'DELETE FROM participates WHERE id_Member = ? AND id_Outdoor = ?' );
-        $renounceOutdoor->execute( array( $_SESSION['id'], $id ) );
+        $renounceOutdoor->execute( array( $_SESSION['id'], $id_outdoor ) );
         
         return $renounceOutdoor;
+    }
+
+    // supprimer sa participation
+    public function renounceRace( $id_race )
+    {
+        $db = $this->dbConnect();
+        $renounceRace = $db->prepare( 'DELETE FROM participates WHERE id_Member = ? AND id_Outdoor = ?' );
+        $renounceRace->execute( array( $_SESSION['id'], $id_race ) );
+        
+        return $renounceRace;
     }
 }

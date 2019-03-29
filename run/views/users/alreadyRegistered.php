@@ -2,8 +2,7 @@
 <?php ob_start();?>
 
 <?php // formulaire de connexion pour l'utilisateur ?>
-
-<h1>Votre espace de connexion</h1>
+<h1>Mon espace de connexion</h1>
 
 <form action="index.php?action=login" method="post">
     <div class="log_reg">

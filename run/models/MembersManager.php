@@ -45,8 +45,8 @@ class MembersManager extends Manager
     public function accountUpdate( $username, $password, $firstname, $lastname, $mail, $id_member )
     {
         $db = $this->dbConnect();
-        $update = $db->prepare( 'UPDATE member SET username = ?, password = ?,
-        firstname = ?, lastname = ?, mail = ? WHERE id = ?' );
+        $update = $db->prepare( 'UPDATE member SET username = ?, password = ?, firstname = ?,
+        lastname = ?, mail = ? WHERE id = ?' );
         $update->execute( array( $username, $password, $firstname, $lastname, $mail, $id_member ) );
         
         return $update;
