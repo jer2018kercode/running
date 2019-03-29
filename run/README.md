@@ -1,4 +1,4 @@
-<h1>Site de renseignement et d’inscription à des évènements sportifs</h1>
+<h3>Site de renseignement et d’inscription à des évènements sportifs</h3>
 
 
 L'objectif du site
