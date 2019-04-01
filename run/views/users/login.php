@@ -1,5 +1,5 @@
-<?php $title = 'Log in';?>
-<?php ob_start();?>
+<?php $title = 'Log in'; ?>
+<?php ob_start(); ?>
 
 <?php // table member utilisée ?>
 
@@ -15,5 +15,5 @@
         <a href="index.php?action=showOutdoors">Les Sorties</a>
 </div>
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?> 
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?> 

@@ -1,5 +1,5 @@
 <?php $title = 'Espace personnel'; ?>
-<?php ob_start();?>
+<?php ob_start(); ?>
 
 <h1>Mon espace personnel</h1>
 

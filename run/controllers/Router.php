@@ -147,7 +147,7 @@ class Router
                 }
 
                 // pour se déconnecter
-                elseif( $_GET['action'] == 'signout' )
+                elseif( $_GET['action'] == 'signout' && isset( $_SESSION['id'] ) )
                 {
                     // détruire la session
                     session_destroy();
@@ -157,7 +157,7 @@ class Router
                 }
 
                 // pour préparer la modification de son espace membre
-                elseif( $_GET['action'] == 'accountPrepare' )
+                elseif( $_GET['action'] == 'accountPrepare' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_member'] ) && $_GET['id_member'] > 0 )
                     {
@@ -168,7 +168,7 @@ class Router
                 }
 
                 // pour modifier ses informations personnelles
-                elseif( $_GET['action'] == 'accountUpdate' )
+                elseif( $_GET['action'] == 'accountUpdate' && isset( $_SESSION['id'] ) )
                 {
                     if( !empty( $_POST['username'] )
                     && !empty( $_POST['password'] )
@@ -220,7 +220,7 @@ class Router
                 }
 
                 // pour rejoindre une sortie
-                elseif( $_GET['action'] == 'joinOutdoor' )
+                elseif( $_GET['action'] == 'joinOutdoor' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_SESSION['id'] )
                     && isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 )
@@ -233,14 +233,14 @@ class Router
                 }
 
                 // pour proposer une sortie
-                elseif( $_GET['action'] == 'suggestOutdoor' )
+                elseif( $_GET['action'] == 'suggestOutdoor' && isset( $_SESSION['id'] ) )
                 {
                     // la vue du formulaire de création de sortie
                     require 'views/outdoors/suggestOutdoor.php';
                 }
 
                 // pour créer une sortie
-                elseif( $_GET['action'] == 'createOutdoor' )
+                elseif( $_GET['action'] == 'createOutdoor' && isset( $_SESSION['id'] ) )
                 {
                     if( !empty( $_POST['title'] )
                     && !empty( $_POST['description'] )
@@ -259,7 +259,7 @@ class Router
                 }
 
                 // pour préparer la mise à jour de la sortie
-                elseif( $_GET['action'] == 'prepareUpdateOutdoor' )
+                elseif( $_GET['action'] == 'prepareUpdateOutdoor' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 )
                     {
@@ -270,30 +270,27 @@ class Router
                 }
                 
                 // pour modifier sa sortie
-                elseif( $_GET['action'] == 'updateOutdoor' )
+                elseif( $_GET['action'] == 'updateOutdoor' && isset( $_SESSION['id'] ) )
                 {
-                    // if( isset( $_SESSION['level'] ) == '1' || isset( $_SESSION['username'] ) )
-                    // {
-                        if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0
-                        && !empty( $_POST['title'] )
-                        && !empty( $_POST['description'] )
-                        && !empty( $_POST['city'] )
-                        && !empty( $_POST['date'] ) )
-                        {
-                            $id_outdoor = htmlspecialchars( $_GET['id_outdoor'] );
-                            $title = htmlspecialchars( $_POST['title'] );
-                            $description = htmlspecialchars( $_POST['description'] );
-                            $city = htmlspecialchars( $_POST['city'] );
-                            $date = htmlspecialchars( $_POST['date'] );
+                    if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0
+                    && !empty( $_POST['title'] )
+                    && !empty( $_POST['description'] )
+                    && !empty( $_POST['city'] )
+                    && !empty( $_POST['date'] ) )
+                    {
+                        $id_outdoor = htmlspecialchars( $_GET['id_outdoor'] );
+                        $title = htmlspecialchars( $_POST['title'] );
+                        $description = htmlspecialchars( $_POST['description'] );
+                        $city = htmlspecialchars( $_POST['city'] );
+                        $date = htmlspecialchars( $_POST['date'] );
                             
-                            $this->outdoorsController->updateOutdoor( $id_outdoor, $title, $description,
-                            $city, $date );
-                        }
-                    // }
+                        $this->outdoorsController->updateOutdoor( $id_outdoor, $title, $description,
+                        $city, $date );
+                    }
                 }
 
                 // pour annuler sa participation à une sortie
-                elseif( $_GET['action'] == 'renounceOutdoor' )
+                elseif( $_GET['action'] == 'renounceOutdoor' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 ) 
                     {
@@ -304,7 +301,7 @@ class Router
                 }
 
                 // pour supprimer sa sortie
-                elseif( $_GET['action'] == 'cancelOutdoor' )
+                elseif( $_GET['action'] == 'cancelOutdoor' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_outdoor'] ) && $_GET['id_outdoor'] > 0 ) 
                     {
@@ -321,13 +318,13 @@ class Router
                 }
 
                 // pour accéder au formulaire des commentaires
-                elseif( $_GET['action'] == 'commentsForm' )
+                elseif( $_GET['action'] == 'commentsForm' && isset( $_SESSION['id'] ) )
                 {
                     require 'views/comments/commentsForm.php';
                 }
 
                 // pour commenter une sortie
-                elseif( $_GET['action'] == 'addComment' )
+                elseif( $_GET['action'] == 'addComment' && isset( $_SESSION['id'] ) )
                 {
                     $this->commentsController->addComment(
                         $_POST['content'], $_SESSION['id'], $_GET['id_outdoor']
@@ -370,7 +367,7 @@ class Router
                 }
 
                 // pour participer à une course
-                elseif( $_GET['action'] == 'raceConfirm' )
+                elseif( $_GET['action'] == 'raceConfirm' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0
                     && isset( $_SESSION['id'] ) )
@@ -383,7 +380,8 @@ class Router
                 }
 
                 // pour accéder au formulaire de création de course (administrateur)
-                elseif( $_GET['action'] == 'newRaceForm' )
+                elseif( $_GET['action'] == 'newRaceForm' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     require 'views/races/newRaceForm.php';
                 }
@@ -441,7 +439,7 @@ class Router
                 }
 
                 // pour annuler sa participation à une course
-                elseif( $_GET['action'] == 'renounceRace' )
+                elseif( $_GET['action'] == 'renounceRace' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0 ) 
                     {
@@ -452,7 +450,7 @@ class Router
                 }
 
                 // pour supprimer une course (administrateur)
-                elseif( $_GET['action'] == 'cancelRace' )
+                elseif( $_GET['action'] == 'cancelRace' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_race'] ) && $_GET['id_race'] > 0 ) 
                     {
@@ -463,7 +461,7 @@ class Router
                 }
 
                 // pour voir son suivi particulier
-                elseif( $_GET['action'] == 'showProgression' )
+                elseif( $_GET['action'] == 'showProgression' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_member'] ) && $_GET['id_member'] > 0 )
                     {
@@ -474,7 +472,7 @@ class Router
                 }
 
                 // pour enregistrer ses données
-                elseif( $_GET['action'] == 'progressionSave' )
+                elseif( $_GET['action'] == 'progressionSave' && isset( $_SESSION['id'] ) )
                 {
                     if( !empty( $_POST['distance'] )
                     && !empty( $_POST['time'] )
@@ -489,7 +487,7 @@ class Router
                 }
 
                 // pour supprimer une ligne de ses données
-                elseif( $_GET['action'] == 'deleteProg' )
+                elseif( $_GET['action'] == 'deleteProg' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_progression'] ) && $_GET['id_progression'] > 0 ) 
                     {
@@ -541,8 +539,9 @@ class Router
                     }
                 }
 
-                // pour préparer la modification d'un article
-                elseif( $_GET['action'] == 'changeArticleForm' )
+                // pour préparer la modification d'un article (administrateur)
+                elseif( $_GET['action'] == 'changeArticleForm' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( isset( $_GET['id_article'] ) && $_GET['id_article'] > 0 )
                     {
@@ -552,8 +551,9 @@ class Router
                     }
                 }
 
-                // pour modifier un article
-                elseif( $_GET['action'] == 'updateArticle' )
+                // pour modifier un article (administrateur)
+                elseif( $_GET['action'] == 'updateArticle' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( !empty( $_POST['title'] )
                     && !empty( $_POST['description'] )
@@ -570,7 +570,8 @@ class Router
                 }
 
                 // pour supprimer un article (administrateur)
-                elseif( $_GET['action'] == 'cancelArticle' )
+                elseif( $_GET['action'] == 'cancelArticle' && isset( $_SESSION['level'] )
+                && $_SESSION['level'] == 1 )
                 {
                     if( isset( $_GET['id_article'] ) && $_GET['id_article'] > 0 ) 
                     {
@@ -593,7 +594,7 @@ class Router
                 }
 
                 // pour accéder à son profil personnel
-                elseif( $_GET['action'] == 'showArea' )
+                elseif( $_GET['action'] == 'showArea' && isset( $_SESSION['id'] ) )
                 {
                     if( isset( $_GET['id_member'] ) && $_GET['id_member'] > 0 )
                     {

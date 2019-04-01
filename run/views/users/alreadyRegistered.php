@@ -1,5 +1,5 @@
-<?php $title = 'Espace de connexion';?>
-<?php ob_start();?>
+<?php $title = 'Espace de connexion'; ?>
+<?php ob_start(); ?>
 
 <?php // formulaire de connexion pour l'utilisateur ?>
 <h1>Mon espace de connexion</h1>
@@ -17,5 +17,5 @@
     </div>
 </form>
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?>

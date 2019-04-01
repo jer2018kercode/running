@@ -1,4 +1,4 @@
-<?php $title = 'Inscrit';?>
+<?php $title = 'Inscrit'; ?>
 <?php ob_start();?>
 
 <?php // message au nouvel utilisateur ?>
@@ -6,5 +6,5 @@
     '<br /><br />' . ' Votre compte a bien été créé ! '; ?><p>
 
 
-<?php $content = ob_get_clean();?>
-<?php require 'views/template.php';?>
+<?php $content = ob_get_clean(); ?>
+<?php require 'views/template.php'; ?>

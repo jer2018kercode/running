@@ -1,5 +1,5 @@
 <?php $title = 'Espace personnel'; ?>
-<?php ob_start();?>
+<?php ob_start(); ?>
 
 <?php $prep = $prepare->fetch(); ?>
 
