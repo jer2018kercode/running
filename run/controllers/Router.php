@@ -9,7 +9,6 @@ use \Exception;
 use \J\controllers\Controller;
 use \J\controllers\ArticlesController;
 use \J\controllers\CandidateController;
-use \J\controllers\CommentsController;
 use \J\controllers\MembersController;
 use \J\controllers\OutdoorsController;
 use \J\controllers\ProgressionController;
@@ -21,7 +20,6 @@ class Router
     private $controller;
     private $articlesController;
     private $candidateController;
-    private $commentsController;
     private $membersController;
     private $outdoorsController;
     private $progressionController;
@@ -34,7 +32,6 @@ class Router
         $this->controller = new Controller();
         $this->articlesController = new ArticlesController();
         $this->candidateController = new CandidateController();
-        $this->commentsController = new CommentsController();
         $this->membersController = new MembersController();
         $this->outdoorsController = new OutdoorsController();
         $this->progressionController = new ProgressionController();
@@ -309,26 +306,6 @@ class Router
 
                         $this->outdoorsController->cancelOutdoor( $id_outdoor );
                     }
-                }
-
-                // pour voir tous les commentaires
-                elseif( $_GET['action'] == 'showComments' )
-                {
-                    $this->commentsController->showComments();
-                }
-
-                // pour accéder au formulaire des commentaires
-                elseif( $_GET['action'] == 'commentsForm' && isset( $_SESSION['id'] ) )
-                {
-                    require 'views/comments/commentsForm.php';
-                }
-
-                // pour commenter une sortie
-                elseif( $_GET['action'] == 'addComment' && isset( $_SESSION['id'] ) )
-                {
-                    $this->commentsController->addComment(
-                        $_POST['content'], $_SESSION['id'], $_GET['id_outdoor']
-                    );
                 }
 
                 // pour voir une seule course

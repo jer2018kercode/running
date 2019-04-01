@@ -360,7 +360,7 @@ img#health {
 /*======================== boutons ========================*/
 input {
     background-color: royalblue;
-    color: tan;
+    color: #000;
     font-weight: bold;
     text-align: center;
     width: 23em;
@@ -370,7 +370,7 @@ input {
 
 textarea {
     background-color: royalblue;
-    color: tan;
+    color: #000;
     font-weight: bold;
     width: 23em;
     height: 2.2em;
